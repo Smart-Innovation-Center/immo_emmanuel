@@ -1,0 +1,73 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block title %}
+	{{ 'Effectuer une vente' | trans }}
+{% endblock %}
+
+{% block body %}
+
+	<ul class="nav nav-tabs">
+		<li class="nav-item">
+			<a class="nav-link" href="{{ path('admin_vente') }}">
+				<i class="fas fa-gavel text-danger"></i>
+				{{ 'Vente'|trans }}
+			</a>
+		</li>
+		<li class="nav-item active">
+			<span class="nav-link active">
+				<i class="fas fa-plus-square text-danger"></i>
+				{{ 'Effectuer une vente'|trans }}
+			</span>
+		</li>
+	</ul>
+
+	<div class="card mb-3">
+
+		<div class="card-body">
+
+
+			{{ form_start(form) }}
+			<div class="form-group" id="bien">
+				{{ form_row(form.bien)  }}
+			</div>
+
+			<div class="form-group" id="user">
+				{{ form_row(form.user)  }}
+			</div>
+
+			<div class="form-group" id="PrixVente">
+				{{ form_row(form.PrixVente) }}
+
+			</div>
+
+			<div class="form-group" id="dateDebut">
+				{{ form_row(form.Dossier) }}
+			</div>
+
+			<div class="form-group" id="dateDebut">
+				{{ form_row(form.dateVente) }}
+			</div>
+
+
+			<div class="form-group">
+
+				<button type="submit" class="btn btn-primary">
+					{{ 'Effectuer une vente'|trans }}
+				</button>
+
+				{{ form_widget(form.saveAndCreateNew, {label: 'Enregistrer et effectuer une nouvelle vente', attr: {class: 'btn btn-primary'}}) }}
+
+			</div>
+
+			{{ form_end(form) }}
+
+		</div>
+	</div><br>
+
+{% endblock %}
+
+{% block javascripts %}
+
+	{{ encore_entry_script_tags('js/slugger') }}
+
+{% endblock %}

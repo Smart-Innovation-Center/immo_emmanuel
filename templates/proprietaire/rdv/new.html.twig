@@ -1,0 +1,72 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block title %}
+	{{ 'Ajouter un rendez-vous' | trans }}
+{% endblock %}
+
+{% block body %}
+
+	<ul class="nav nav-tabs">
+		<li class="nav-item">
+			<a class="nav-link" href="{{ path('admin_rdv') }}">
+				<i class="fas fa-gavel text-danger"></i>
+				{{ 'Rendez-vous'|trans }}
+			</a>
+		</li>
+		<li class="nav-item active">
+			<span class="nav-link active">
+				<i class="fas fa-plus-square text-danger"></i>
+				{{ 'créer un rendez-vous'|trans }}
+			</span>
+		</li>
+	</ul>
+
+	<div class="card mb-3">
+
+		<div class="card-body">
+
+			{{ form_start(form) }}
+
+			<div class="form-group" id="bien">
+				{{ form_row(form.bien) }}
+			</div>
+
+			<div class="form-group" id="utilisateur">
+				{{ form_row(form.utilisateur) }}
+			</div>
+
+			<div class="form-group" id="date">
+				{{ form_row(form.date) }}
+			</div>
+
+			<div class="form-group" id="heure">
+				{{ form_row(form.heure) }}
+			</div>
+
+			<div class="form-group" id="heure">
+				{{ form_row(form.isEffect) }}
+			</div>
+
+
+			<div class="form-group">
+
+				<button type="submit" class="btn btn-primary">
+					{{ 'Créer un rdv'|trans }}
+				</button>
+
+				{{ form_widget(form.saveAndCreateNew, {label: 'Enregistrer et créer une nouveau RDV', attr: {class: 'btn btn-primary'}}) }}
+
+			</div>
+
+			{{ form_end(form) }}
+
+		</div>
+	</div><br>
+
+{% endblock %}
+
+{% block javascripts %}
+
+	{{ encore_entry_script_tags('js/slugger') }}
+
+{% endblock %}

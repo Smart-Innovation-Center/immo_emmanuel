@@ -1,0 +1,69 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block title %}
+	{{ 'Vente'|trans }}
+{% endblock %}
+
+{% block body %}
+
+	<ul class="nav nav-tabs">
+		<li class="nav-item active">
+			<span class="nav-link active">
+				<i class="fas fa-gavel text-danger"></i>
+				{{ 'Vente'|trans }}
+
+
+			</span>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="{{ path('admin_vente_new') }}">
+				<i class="fas fa-plus-square text-danger"></i>
+				{{ 'Créer une vente'|trans }}
+			</a>
+		</li>
+	</ul>
+
+	<div class="card mb-3">
+
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table" style="background-color: #FFFFFF">
+					<thead class="thead">
+						<tr>
+							<th>{{"Bien" | trans}}</th>
+							<th>{{"Utilisateur" | trans}}</th>
+							<th>{{"Prix initial" | trans}}</th>
+							<th>{{"Prix de vente" | trans}}</th>
+							<th>{{"Date de vente" | trans}}</th>
+							<th>{{ 'Dossier' | trans }}</th>
+							<th>{{ 'action' | trans }}</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						{% for vente in ventes %}
+							<tr>
+								<td>{{vente.bien.slug |raw }}</td>
+								<td>{{vente.user.username |raw }}</td>
+								<td>{{vente.bien.price |raw }}</td>
+								<td>{{vente.PrixVente }}</td>
+								<td>{{vente.dateVente |date("m/d/Y") }}</td>
+								<td>{{vente.Dossier }}</td>
+								<td>
+									{{ include('admin/vente/_action_form.html.twig', {vente: vente}, with_context = false) }}
+								</td>
+							</tr>
+
+						{% else %}
+							<tr>
+								<td>{{ 'no_items_found' | trans }}</td>
+							</tr>
+						{% endfor %}
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

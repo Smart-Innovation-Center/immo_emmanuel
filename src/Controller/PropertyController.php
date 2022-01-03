@@ -7,9 +7,9 @@ namespace App\Controller;
 use App\Entity\Property;
 use App\Entity\PrisedeRDV;
 use App\Form\Type\PriseRdvType;
-use App\Service\Admin\PropertyService;
 
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Repository\FilterRepository;
 use App\Repository\PropertyRepository;
 use App\Repository\SlideRepository;
@@ -33,9 +33,9 @@ final class PropertyController extends BaseController
      TypePropertyRepository $typePropertyRepository, RequestToArrayTransformer $transformer): Response
     {
 
-      
-        $searchParams = $transformer->transform($request);
 
+        $searchParams = $transformer->transform($request);
+//dd($searchParams);
 
         $properties = $repository->findByFilter($searchParams);
         $slides = $slideRepository->findAll($searchParams);
@@ -93,6 +93,16 @@ final class PropertyController extends BaseController
                 'properties' => $repository->findAllPublished(),
             ]
         );
+    }
+
+      /**
+     * @Route("/checkrdvdate", methods={"GET"}, name="rdv_date")
+     */
+    public function rdvdate(Request $request,PropertyRepository $repository): Response
+    {
+        $donn= $_GET['rdvheure'];
+        $arrayCollection = array('slug' =>$donn);
+        return new JsonResponse($arrayCollection);
     }
 
     /**

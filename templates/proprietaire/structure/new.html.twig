@@ -1,0 +1,77 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block title %}
+	{{ 'Ajouter une structure' | trans }}
+{% endblock %}
+
+{% block body %}
+
+	<ul class="nav nav-tabs">
+		<li class="nav-item">
+			<a class="nav-link" href="{{ path('admin_structures') }}">
+				<i class="fas fa-gavel text-danger"></i>
+				{{ 'structures'|trans }}
+			</a>
+		</li>
+		<li class="nav-item active">
+			<span class="nav-link active">
+				<i class="fas fa-plus-square text-danger"></i>
+				{{ 'créer une structure'|trans }}
+			</span>
+		</li>
+	</ul>
+
+	<div class="card mb-3">
+
+		<div class="card-body">
+
+			{{ form_start(form) }}
+
+			<div class="form-group" id="NumeroRegisteDeCommerce">
+				{{ form_row(form.NumeroRegisteDeCommerce) }}
+			</div>
+
+			<div class="form-group" id="libelle">
+				{{ form_row(form.libelle) }}
+			</div>
+
+			<div class="form-group" id="adresse">
+				{{ form_row(form.adresse) }}
+			</div>
+
+			<div class="form-group" id="contact">
+				{{ form_row(form.contact) }}
+			</div>
+
+			<div class="form-group" id="email">
+				{{ form_row(form.email) }}
+			</div>
+
+
+			<div class="form-group" id="siteWeb">
+				{{ form_row(form.siteWeb) }}
+			</div>
+
+
+			<div class="form-group">
+
+				<button type="submit" class="btn btn-primary">
+					{{ 'Créer une structure'|trans }}
+				</button>
+
+				{{ form_widget(form.saveAndCreateNew, {label: 'Enregistrer et créer une nouvelle structure', attr: {class: 'btn btn-primary'}}) }}
+
+			</div>
+
+			{{ form_end(form) }}
+
+		</div>
+	</div><br>
+
+{% endblock %}
+
+{% block javascripts %}
+
+	{{ encore_entry_script_tags('js/slugger') }}
+
+{% endblock %}

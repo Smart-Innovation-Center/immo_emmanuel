@@ -39,7 +39,7 @@
             <div class="col-xs-12 col-sm-6 col-lg-3">
               <div class="rd-navbar-brand">
                 <a href="index.html" class="brand-name">
-                  <img src="/newimages/logo-2.png" alt="">
+                  <img src="/new/images/logo-2.png" alt="">
                 </a>
               </div>
               <p>We believe in Simple, Creative &amp; Flexible Design Standards.</p>
@@ -152,6 +152,29 @@
  <script src="{{ asset('/new/js/jm.js')}}"></script>
  <script src="{{ asset('/new/js/core.min.js')}}"></script>
  <script src="{{ asset('/new/js/script.js')}}"></script>
+
+ <script>
+
+    function changeRdvStatus($url) {
+
+ var valRDV= document.getElementById('heurerdv').value;
+ alert(valRDV);
+        $.ajax({
+
+            type: "GET",
+            url: $url,
+            async: true,
+            data: {rdvheure:valRDV},
+            success: function(data){
+                console.log('success');
+                var result = JSON.stringify(data);
+                alert(result);
+                //$('.test').html(result); //return correct data
+            }
+        });
+    }
+
+</script>
 {% block javascripts %}{% endblock %}
 
 </body>

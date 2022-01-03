@@ -204,7 +204,7 @@ $document.ready(function() {
    * isScrolledIntoView
    * @description  check the element whas been scrolled into the view
    */
-  function isScrolledIntoView(elem) { 
+  function isScrolledIntoView(elem) {
     var $window = $(window);
     if  (!isNoviBuilder){
       return elem.offset().top + elem.outerHeight() >= $window.scrollTop() && elem.offset().top <= $window.scrollTop() + $window.height();
@@ -502,7 +502,7 @@ $document.ready(function() {
         }
       }
     });
-  } 
+  }
 
   /**
    * Bootstrap Date time picker
@@ -819,7 +819,7 @@ $document.ready(function() {
 
    /**
    * RD Calendar
-   * @description Enables RD Calendar plugin 
+   * @description Enables RD Calendar plugin
    */
   if (plugins.calendar.length) {
     var i;
@@ -920,6 +920,15 @@ $document.ready(function() {
     }
   }
 
+
+
+
+
+
+
+
+
+  
   /**
    * Circle Progress
    * @description Enable Circle Progress plugin
@@ -1004,7 +1013,7 @@ $document.ready(function() {
               var bar = event.data.barItem;
               var $this = $(this);
 
-              if (isScrolledIntoView($this) && this.className.indexOf("progress-bar--animated") === -1) { 
+              if (isScrolledIntoView($this) && this.className.indexOf("progress-bar--animated") === -1) {
                 this.className += " progress-bar--animated";
                 bar.animate(parseInt($this.attr("data-value")) / 100.0, {
                   easing: $this.attr("data-easing"),
@@ -1420,7 +1429,7 @@ $document.ready(function() {
       }
 
       c.owlCarousel({
-        autoplay: isNoviBuilder === "designMode" ? false : c.attr("data-autoplay") === "true", 
+        autoplay: isNoviBuilder === "designMode" ? false : c.attr("data-autoplay") === "true",
         loop: isNoviBuilder === "designMode" ? false : c.attr("data-loop"),
         items: 1,
         dotsContainer: c.attr("data-pagination-class") || false,
@@ -1806,7 +1815,7 @@ $document.ready(function() {
   *Add class on Click at Search Form
   */
   $features.on("click", function(e) {
-    var $checkboxList = $('ul.checkbox-list'); 
+    var $checkboxList = $('ul.checkbox-list');
 
     $(this).toggleClass('active');
     if ($checkboxList.is(":visible")) {

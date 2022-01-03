@@ -21,11 +21,11 @@
                     <input id="contact-rdvdate" type="date" name="rdvdate" data-constraints="@Required @Rdvdate" class="form-control">
                   </div>
                         <div class="form-group">
-                    <label for="contact-email2" class="form-label">Heure du DRV</label>
+                    <label for="contact-email2"   class="form-label">Heure du DRV</label>
 
 
 
-                    <select class="form-control" id="heurerdv" name="heurerdv" data-constraints="@Required">
+                    <select class="form-control" onchange="changeRdvStatus('{{ path('rdv_date') }}')" id="heurerdv" name="heurerdv" data-constraints="@Required">
                     {% for i in 7..18 %}
                     {% for j in 0..1 %}
                     {% if (j/1)  == 1  %}
@@ -49,3 +49,6 @@
                   <button type="submit" class="btn btn-sushi btn-sm">Prendre le RDV</button>
                 </form>
               </div>
+
+
+

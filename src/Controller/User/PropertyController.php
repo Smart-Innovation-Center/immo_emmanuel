@@ -25,7 +25,7 @@ final class PropertyController extends BaseController
     public function index(Request $request, PropertyService $service): Response
     {
         $properties = $service->getUserProperties($request);
-
+        //dd($properties);
         return $this->render('user/property/index.html.twig', [
             'properties' => $properties,
             'site' => $this->site(),

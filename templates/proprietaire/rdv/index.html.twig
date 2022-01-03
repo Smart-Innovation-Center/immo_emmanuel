@@ -1,0 +1,70 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block title %}
+	{{ 'Rendez-vous'|trans }}
+{% endblock %}
+
+{% block body %}
+
+<ul class="nav nav-tabs">
+	<li class="nav-item active">
+		<span class="nav-link active">
+			<i class="fas fa-gavel text-danger"></i>
+			{{ 'Rendez-vous'|trans }}
+
+		</span>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="{{ path('admin_rdv_new') }}">
+			<i class="fas fa-plus-square text-danger"></i>
+			{{ 'créer un rendez-vous'|trans }}
+		</a>
+	</li>
+</ul>
+
+<div class="card mb-3">
+
+	<div class="card-body">
+		<div class="table-responsive">
+			<table class="table" style="background-color: #FFFFFF">
+				<thead class="thead">
+					<tr>
+						<th>{{"Bien" | trans}}</th>
+						<th>{{ 'Nom de l\'utilisateur' | trans }}</th>
+							<th>{{ 'Date du rendez-vous' | trans }}</th>
+							<th>{{ 'Heure du rendez-vous' | trans }}</th>
+							<th>{{ 'Etat du rendez-vous' | trans }}</th>
+						</tr>
+				 	</thead>
+					<tbody>
+
+                        {% for rdv in rdvs %}
+							<tr>
+								<td>{{rdv.bien.slug |raw }}</td>
+								<td>{{ rdv.utilisateur.username }}</td>
+								<td>{{ rdv.date | date("m/d/Y")}}</td>
+								<td>{{ rdv.heure | date("H:m")}}</td>
+									{% if  rdv.isEffect == 1 %}
+										<td><img  src="{{ asset('/images/yes.png') }}" ></td>
+									{% endif %}
+									{% if  rdv.isEffect == 0 %}
+										<td><img src="{{ asset('/images/no.png') }}">	</td>
+									{% endif %}
+								<td>
+									{{ include('admin/rdv/_action_form.html.twig', {rdv: rdv}, with_context = false) }}
+								</td>
+							</tr>
+
+						{% else %}
+							<tr>
+								<td>{{ 'no_items_found' | trans }}</td>
+							</tr>
+						{% endfor %}
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

@@ -686,6 +686,9 @@
     "symfonycasts/verify-email-bundle": {
         "version": "dev-main"
     },
+    "tetranz/select2entity-bundle": {
+        "version": "dev-master"
+    },
     "theseer/tokenizer": {
         "version": "1.2.0"
     },

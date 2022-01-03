@@ -71,6 +71,7 @@ security:
     # additional security lives in the controllers
     - { path: '^/(%app_locales%)/admin', roles: ROLE_ADMIN }
     - { path: '^/(%app_locales%)/user', roles: ROLE_USER }
+    - { path: '^/(%app_locales%)/proprietaire', roles: ROLE_PROPRIETAIRE }
 
 when@test:
     # this configuration simplifies testing URLs protected by the security mechanism

@@ -16,11 +16,16 @@ final class SecurityController extends BaseController
      */
     public function login(Security $security, AuthenticationUtils $helper): Response
     {
+
+       // dd($helper);
         // if user is already logged in, don't display the login page again
         if ($security->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('admin_dashboard');
         } elseif ($security->isGranted('ROLE_USER')) {
             return $this->redirectToRoute('user_property');
+        } elseif ($security->isGranted('ROLE_PROPRIETAIRE')) {
+            return $this->redirectToRoute('proprietaire_property');
+            //return $this->redirectToRoute('proprietaire_dashboard');
         }
 
         return $this->render('security/login.html.twig', [
