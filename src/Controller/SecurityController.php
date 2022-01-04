@@ -26,6 +26,8 @@ final class SecurityController extends BaseController
         } elseif ($security->isGranted('ROLE_PROPRIETAIRE')) {
             return $this->redirectToRoute('proprietaire_property');
             //return $this->redirectToRoute('proprietaire_dashboard');
+        } elseif ($security->isGranted('ROLE_STRUCTURE')) {
+            return $this->redirectToRoute('structure');
         }
 
         return $this->render('security/login.html.twig', [

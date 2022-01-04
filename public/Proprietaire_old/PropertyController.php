@@ -27,7 +27,7 @@ final class ProprietaireController extends BaseController
 
         $properties = $service->getUserProperties($request);
 
-        dd($properties);
+       // dd($properties);
         return $this->render('proprietaire/home/index.html.twig', [
             'properties' => $properties,
             'site' => $this->site(),

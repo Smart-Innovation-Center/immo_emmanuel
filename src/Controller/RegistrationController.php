@@ -49,6 +49,8 @@ class RegistrationController extends AbstractController
                 $user->setRoles(['ROLE_USER']);
             }elseif($_POST['type_compte']==2) {
                 $user->setRoles(['ROLE_PROPRIETAIRE']);
+            }elseif($_POST['type_compte']==3) {
+                $user->setRoles(['ROLE_STRUCTURE']);
             }
 
 
