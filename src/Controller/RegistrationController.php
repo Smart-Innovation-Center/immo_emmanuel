@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\RegistrationFormType;
+use App\Entity\Structures;
+use App\Entity\Agences;
+use App\Form
+\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
@@ -30,10 +33,15 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
+        
         $user = new User();
+        $structure = new Structures();
+        $agence = new Agences();
+        
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
+        
 
         if ($form->isSubmitted()) {
             // encode the plain password
@@ -50,12 +58,52 @@ class RegistrationController extends AbstractController
             }elseif($_POST['type_compte']==2) {
                 $user->setRoles(['ROLE_PROPRIETAIRE']);
             }elseif($_POST['type_compte']==3) {
+
+                
                 $user->setRoles(['ROLE_STRUCTURE']);
+                $structure->setNumeroRegisteDeCommerce($_POST['NumeroRegisteDeCommerce']);
+                $structure->setLibelle($_POST['libelle']);
+                $structure->setAdresse($_POST['adresse']);
+                $structure->setContact($_POST['contact']);
+                $structure->setEmail($_POST['email']);
+                $structure->setSiteWeb($_POST['siteWeb']);
+
+                $entityManager->persist($structure);
+                $entityManager->flush();
+                $id_structure = $structure->getId();
+                
+                $agence->setLibelle($_POST['libelle_agence']);
+                $agence->setEmail($_POST['email_agence']);
+                $agence->setContact($_POST['contact_agence']);
+                $agence->setAdresse($_POST['siteWeb_agence']);
+
+                
+           $structuress=$entityManager->getRepository(Structures::class)->find($id_structure);
+          // dd($structuress);
+
+           
+               // $agence->setStructureId(Structures::class, $id_structure);
+
+                $agence->setStructureId($entityManager->getReference(Structures::class, $id_structure));
+                //$agence->setStructureId($structure->getId());
+                
+                
+
+                $entityManager->persist($agence);
+                $entityManager->flush();
+                $id_agence = $agence->getId();
+
+                //$user->setAgenceId($id_agence);
+                $user->setAgenceId($entityManager->getReference(Agences::class, $id_agence));
+                
+                $entityManager->flush();
             }
 
 
             $entityManager->persist($user);
             $entityManager->flush();
+            
+            
 
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,

@@ -1,4 +1,3 @@
-
 {% extends 'layout/base_register.html.twig' %}
 
 {% block header %}
@@ -7,61 +6,89 @@
 	{# {{ include('property/partials/_search_form.html.twig') }} #}
 {% endblock %}
 {% block body %}
- <div class="container">
-    {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
+	<div class="container">
+		{% for flashError in app.flashes('verify_email_error') %}
+			<div class="alert alert-danger" role="alert">{{ flashError }}</div>
+		{% endfor %}
 
-    <h1>Création de compte</h1>
-<section class="section-sm section-sm-mod-2 text-left">
-      <div class="container">
-        <div class="row">
-<div class="col-xs-12 col-sm-8 col-lg-5">
-    {{ form_start(registrationForm) }}
-        <div class="form-group">
-                {{ form_row(registrationForm.username,{'label':"Votre nom d'utilisateur :",'attr':{
-                    'placeholder':"", 'class':"form-control"
-                } }) }}
-                </div>
-        {{ form_row(registrationForm.plainPassword,{'label':"Votre mot de passe :",'attr':{
-                    'placeholder':"", 'class':"form-control"
-                } }) }}
-                 <div class="form-group">
-                {{ form_row(registrationForm.email,{'label':"email:",'attr':{
-                    'placeholder':"", 'class':"form-control"
-                } }) }}
-                </div>
-                <div class="form-group">
-              <label for="select-search-1" class="form-label rd-input-label focus not-empty">Type de compte</label>
-              <select id="select-search-1" name="type_compte" id="type_compte" data-minimum-results-for-search="Infinity" class="form-control select-filter select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-                <option value="Any" selected="selected">Choisir</option>
-                <option value="1">Locataire</option>
-                <option value="2">Propriétaire</option>
-                <option value="3">Structure Immobilière</option>
-              </select>
-            </div>
+		<h1>Création de compte</h1>
+		<section class="section-sm section-sm-mod-2 text-left">
+			<div class="container" id="regis">
+				<div class="row">
+					<div class="col-xs-4 col-sm-8 col-lg-5 ">
+						{{ form_start(registrationForm) }}
+						<div class="form-group">
+							{{ form_row(registrationForm.username,{'label':"Votre nom d'utilisateur :",'attr':{'placeholder':"", 'class':"form-control"} }) }}
+						</div>
+						{{ form_row(registrationForm.plainPassword,{'label':"Votre mot de passe :",'attr':{'placeholder':"", 'class':"form-control"} }) }}
+						<div class="form-group">
+							{{ form_row(registrationForm.email,{'label':"email:",'attr':{'placeholder':"", 'class':"form-control"} }) }}
+						</div>
+						<div class="form-group">
+							<label for="select-search-1" class="form-label rd-input-label focus not-empty">Type de compte</label>
+							<select id="select-search-1" onchange="getval(this);" name="type_compte" id="type_compte" data-minimum-results-for-search="Infinity" class="form-control select-filter select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+								<option value="0" selected="selected">Choisir</option>
+								<option value="1">Locataire</option>
+								<option value="2">Propriétaire</option>
+								<option value="3">Structure Immobilière</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-xs-4 col-sm-8 col-lg-5" style="display:none;" name="structure_account" id="structure_account">
+						<div class="form-group">
+							<label>Numéro de régistre de commerce de la Structure</label>
+							<input type="text" name="NumeroRegisteDeCommerce" class="form-control"/>
+						</div>
+						<div class="form-group">
+							<label>Nom de la Structure</label>
+							<input type="text" name="libelle" class="form-control"/>
+						</div>
+						<div class="form-group">
+							<label>Adresse de la Structure</label>
+							<input type="text" name="adresse" class="form-control"/>
+						</div>
+						<div class="form-group">
+							<label>Contact de la Structure</label>
+							<input type="text" name="contact" class="form-control"/>
+						</div>
+						<div class="form-group">
+							<label>Email de la Structure</label>
+							<input type="email" name="email" class="form-control"/>
+						</div>
+						<div class="form-group">
+							<label>site web de la Structure</label>
+							<input type="text" name="siteWeb" class="form-control"/>
+						</div>
+					</div>
+					<div class="col-xs-4 col-sm-8 col-lg-5" style="display:none;" name="agence_account" id="agence_account">
+						<div class="form-group">
+							<label>Nom de l'agence</label>
+							<input type="text" name="libelle_agence" class="form-control"/>
+						</div>
+						<div class="form-group">
+							<label>Email de l'agence</label>
+							<input type="email" name="email_agence" class="form-control"/>
+						</div>
+						<div class="form-group">
+							<label>Contact de l'agence</label>
+							<input type="text" name="contact_agence" class="form-control"/>
+						</div>
+						<div class="form-group">
+							<label>Adresse de l'agence</label>
+							<input type="text" name="siteWeb_agence" class="form-control"/>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group">
+						{{ form_row(registrationForm.agreeTerms) }}
+						<a href="{{ path('default_route')}}" target="_blank">Read Conditions</a>
+					</div>
+					<button type="submit" class="btn btn-sushi btn-sm btn-min-width-xs">Créer mon compte</button>
+					{{ form_end(registrationForm) }}
+				</div>
+			</div>
+		</section>
+		<!--Section Login-->
 
-                <div class="form-group">
-								{{ form_row(registrationForm.agreeTerms) }}
-                                <a href="{{ path('default_route')}}" target="_blank">Read Conditions</a>
-							</div>
-
-        <button type="submit" class="btn btn-sushi btn-sm btn-min-width-xs">Créer mon compte</button>
-    {{ form_end(registrationForm) }}
-    </div>
-
-</div>
-      </div>
-    </section>
-<!--Section Login-->
-
-
-
-
-
-{% endblock %}
-
-
-
-
-
+	{% endblock %}

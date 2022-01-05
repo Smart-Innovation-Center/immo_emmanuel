@@ -171,7 +171,6 @@ class Agences
     public function setStructureId(?Structures $structure_id): self
     {
         $this->structure_id = $structure_id;
-
         return $this;
     }
 
