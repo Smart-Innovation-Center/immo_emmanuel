@@ -87,8 +87,6 @@ class RegistrationController extends AbstractController
                 $agence->setStructureId($entityManager->getReference(Structures::class, $id_structure));
                 //$agence->setStructureId($structure->getId());
                 
-                
-
                 $entityManager->persist($agence);
                 $entityManager->flush();
                 $id_agence = $agence->getId();

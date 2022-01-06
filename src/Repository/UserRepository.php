@@ -24,4 +24,14 @@ class UserRepository extends ServiceEntityRepository
 
         return (int) $count;
     }
+    public function findByRoleThatSucksLess(string $role)
+    {
+        $role = mb_strtoupper($role);
+
+        return $this->createQueryBuilder('u')
+            ->andWhere('JSON_CONTAINS(u.roles, :role) = 1')
+            ->setParameter('role', '"ROLE_' . $role . '"')
+            ->getQuery()
+            ->getResult();
+    }
 }
