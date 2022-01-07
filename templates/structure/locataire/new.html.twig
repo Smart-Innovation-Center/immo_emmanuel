@@ -1,0 +1,43 @@
+{% extends "structure/bars.html.twig" %}
+
+{% block title %}
+	{{ 'Ajouter un Locataire' | trans }}
+{% endblock %}
+
+{% block contenpage %}
+
+	<div class="card mb-3">
+		<div class="card-body">
+			{{ form_start(form) }}
+
+			<div class="form-group">
+				{{ form_row(form.username) }}
+			</div>
+			<div class="form-group">
+				{{ form_row(form.email) }}
+			</div>
+			<div class="form-group">
+				{{ form_row(form.password) }}
+			</div>
+
+			<div class="form-group">
+				<label for="select-search-1" class="form-label rd-input-label focus not-empty">Agence</label>
+				<select id="select-search-1" name="agence" id="agence" data-minimum-results-for-search="Infinity" class="form-control select-filter select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+					{% for agence in agences %}
+						{% if agence.StructureId.libelle == app.user.AgenceId.structureId.libelle   %}
+							<option value="{{agence.id}}" required="required">{{agence.libelle}}</option>
+
+						{% endif %}
+					{% endfor %}
+				</select>
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary">
+					{{ 'Créer un Locataire'|trans }}
+				</button>
+			</div>
+			{{ form_end(form) }}
+
+		</div>
+	</div><br>
+{% endblock %}

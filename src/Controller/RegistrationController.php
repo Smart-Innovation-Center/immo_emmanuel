@@ -5,8 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Structures;
 use App\Entity\Agences;
-use App\Form
-\RegistrationFormType;
+use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
@@ -33,33 +32,33 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
-        
+
         $user = new User();
         $structure = new Structures();
         $agence = new Agences();
-        
+
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
-        
+
 
         if ($form->isSubmitted()) {
             // encode the plain password
             $user->setPassword(
-            $userPasswordHasher->hashPassword(
+                $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
             if (\in_array('ROLE_ADMIN', $user->getRoles(), true)) {
                 $user->setRoles(['ROLE_ADMIN', 'ROLE_USER']);
-            } elseif($_POST['type_compte']==1) {
+            } elseif ($_POST['type_compte'] == 1) {
                 $user->setRoles(['ROLE_USER']);
-            }elseif($_POST['type_compte']==2) {
+            } elseif ($_POST['type_compte'] == 2) {
                 $user->setRoles(['ROLE_PROPRIETAIRE']);
-            }elseif($_POST['type_compte']==3) {
+            } elseif ($_POST['type_compte'] == 3) {
 
-                
+
                 $user->setRoles(['ROLE_STRUCTURE']);
                 $structure->setNumeroRegisteDeCommerce($_POST['NumeroRegisteDeCommerce']);
                 $structure->setLibelle($_POST['libelle']);
@@ -71,40 +70,42 @@ class RegistrationController extends AbstractController
                 $entityManager->persist($structure);
                 $entityManager->flush();
                 $id_structure = $structure->getId();
-                
+
                 $agence->setLibelle($_POST['libelle_agence']);
                 $agence->setEmail($_POST['email_agence']);
                 $agence->setContact($_POST['contact_agence']);
                 $agence->setAdresse($_POST['siteWeb_agence']);
 
-                
-           $structuress=$entityManager->getRepository(Structures::class)->find($id_structure);
-          // dd($structuress);
 
-           
-               // $agence->setStructureId(Structures::class, $id_structure);
+                $structuress = $entityManager->getRepository(Structures::class)->find($id_structure);
+                // dd($structuress);
+
+
+                // $agence->setStructureId(Structures::class, $id_structure);
 
                 $agence->setStructureId($entityManager->getReference(Structures::class, $id_structure));
                 //$agence->setStructureId($structure->getId());
-                
+
                 $entityManager->persist($agence);
                 $entityManager->flush();
                 $id_agence = $agence->getId();
 
                 //$user->setAgenceId($id_agence);
                 $user->setAgenceId($entityManager->getReference(Agences::class, $id_agence));
-                
+
                 $entityManager->flush();
             }
 
 
             $entityManager->persist($user);
             $entityManager->flush();
-            
-            
+
+
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            $this->emailVerifier->sendEmailConfirmation(
+                'app_verify_email',
+                $user,
                 (new TemplatedEmail())
                     ->from(new Address('abeudev@gmail.com', 'SIC IMMOBILIER'))
                     ->to($user->getEmail())
@@ -115,7 +116,7 @@ class RegistrationController extends AbstractController
 
             return $this->redirectToRoute('default_route');
         }
-//dd($form);
+        //dd($form);
         return $this->render('registration/register.html.twig', [
 
             'registrationForm' => $form->createView(),

@@ -2,7 +2,7 @@
 
 
 {% block title %}
-	{{ 'Propriétaires'|trans }}
+	{{ 'Locataires'|trans }}
 {% endblock %}
 
 
@@ -27,7 +27,7 @@
 								<td class="hidden-sm">{{ user.username }}</td>
 								<td>{{ user.email }}</td>
 								<td>
-									{{ include('structure/proprietaire/_action_form.html.twig', {user: user}, with_context = false) }}
+									{{ include('structure/locataire/_action_form.html.twig', {user: user}, with_context = false) }}
 								</td>
 							</tr>
 

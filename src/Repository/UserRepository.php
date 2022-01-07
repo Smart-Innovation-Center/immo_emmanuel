@@ -24,14 +24,45 @@ class UserRepository extends ServiceEntityRepository
 
         return (int) $count;
     }
-    public function findByRoleThatSucksLess(string $role)
-    {
-        $role = mb_strtoupper($role);
 
-        return $this->createQueryBuilder('u')
-            ->andWhere('JSON_CONTAINS(u.roles, :role) = 1')
-            ->setParameter('role', '"ROLE_' . $role . '"')
+
+    public function testUser($agceid, $strcid)
+    {
+        $term = "ROLE_PROPRIETAIRE";
+        $qb = $this->createQueryBuilder('u');
+        $classes = $qb
+            //->select('count(u.id)')
+            ->from('App\Entity\User', 'usr')
+            ->join('App\Entity\Agences', 'agce')
+            //->join('App\Entity\User', 'usr')
+            ->join('App\Entity\Structures', 'strc')
+            ->where('agce.structure_id = ' . $strcid . '')
+            ->AndWhere('u.AgenceId  = agce.id')
+            ->AndWhere('u.roles LIKE :rle')
+            ->setParameter('rle', '%' . $term . '%')
+            ->groupBy('u.username')
             ->getQuery()
-            ->getResult();
+            ->getArrayResult();
+        return $classes;
+    }
+
+    public function testUserL($agceid, $strcid)
+    {
+        $term = "ROLE_LOCATAIRE";
+        $qb = $this->createQueryBuilder('u');
+        $classes = $qb
+            //->select('count(u.id)')
+            ->from('App\Entity\User', 'usr')
+            ->join('App\Entity\Agences', 'agce')
+            //->join('App\Entity\User', 'usr')
+            ->join('App\Entity\Structures', 'strc')
+            ->where('agce.structure_id = ' . $strcid . '')
+            ->AndWhere('u.AgenceId  = agce.id')
+            ->AndWhere('u.roles LIKE :rle')
+            ->setParameter('rle', '%' . $term . '%')
+            ->groupBy('u.username')
+            ->getQuery()
+            ->getArrayResult();
+        return $classes;
     }
 }
