@@ -19,7 +19,7 @@ class AreaExtension extends AbstractExtension
     {
         $this->bien = $bien;
     }
-    
+
     public function getFilters(): array
     {
         return [
@@ -35,6 +35,7 @@ class AreaExtension extends AbstractExtension
         return [
             new TwigFunction('minArea', [$this, 'minAreas']),
             new TwigFunction('maxArea', [$this, 'maxAreas']),
+            new TwigFunction('showProperty', [$this, 'showPropertys']),
         ];
     }
 
@@ -43,10 +44,16 @@ class AreaExtension extends AbstractExtension
         $var = $this->bien->MinArea();
         return $var;
     }
-    
+
     public function maxAreas()
     {
         $var = $this->bien->MaxArea();
+        return $var;
+    }
+
+    public function showPropertys($id)
+    {
+        $var = $this->bien->ShowProperty($id);
         return $var;
     }
 }

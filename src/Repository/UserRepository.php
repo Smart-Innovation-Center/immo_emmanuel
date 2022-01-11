@@ -65,4 +65,17 @@ class UserRepository extends ServiceEntityRepository
             ->getArrayResult();
         return $classes;
     }
+    public function testUserU()
+    {
+        $term = "ROLE_STRUCTURE";
+        $qb = $this->createQueryBuilder('u');
+        $classes = $qb
+            ->from('App\Entity\User', 'usr')
+            ->AndWhere('u.roles LIKE :rle')
+            ->setParameter('rle', '%' . $term . '%')
+            ->groupBy('u.username')
+            ->getQuery()
+            ->getArrayResult();
+        return $classes;
+    }
 }

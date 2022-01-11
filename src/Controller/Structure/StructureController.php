@@ -21,9 +21,11 @@ final class StructureController extends BaseController
     /**
      * @Route("/structure", defaults={"page": "1"}, methods={"GET"}, name="structure")
      */
-   public function index(UserRepository $repository): Response
+    public function index(UserRepository $repository): Response
     {
-        $users = $repository->findAll();
+        //$users = $repository->findAll();
+
+        $users = $repository->testUserU();
 
         return $this->render('structure/structure/index.html.twig', [
             'site' => $this->site(),
@@ -34,7 +36,7 @@ final class StructureController extends BaseController
     /**
      * @Route("/structure/new", name="structure_new")
      */
-    public function new(Request $request, StructureService $service): Response
+    public function new(Request $request): Response
     {
         $user = new User();
 
@@ -63,11 +65,11 @@ final class StructureController extends BaseController
         ]);
     }
 
-     /**
+    /**
      * Displays a form to edit an existing User entity.
      *
      * @Route("/structure/{id<\d+>}/edit",methods={"GET", "POST"}, name="structure_edit")
-    */
+     */
     public function edit(Request $request, User $user, UserService $service): Response
     {
         $form = $this->createForm(UserType::class, $user);
@@ -83,12 +85,12 @@ final class StructureController extends BaseController
         ]);
     }
 
-     /**
+    /**
      * Deletes an Structure entity.
      *
      * @Route("/structure/{id<\d+>}/delete", methods={"POST"}, name="structure_delete")
      * 
-    */
+     */
     public function delete(Request $request, User $user, UserService $service): Response
     {
         if (!$this->isCsrfTokenValid('delete', $request->request->get('token'))) {

@@ -18,10 +18,7 @@
 						<img src="{{ app.user.avatarUrl(50) }}" alt="..." class="img-circle profile_img">
 					{% endif %}
 				</div>
-				{#  <div class="profile_info">
-																																																																                    <span>{{ "backend.global.welcome"|trans }},</span>
-																																																																                    <h2>{{ app.user.username }}</h2>
-																																																																                </div> #}
+				{#  <div class="profile_info"> <span> {{ "backend.global.welcome"|trans }} </span>																																						                </div> #}
 			</div>
 			<!-- /menu profile quick info -->
 
@@ -112,29 +109,6 @@
 						<li>
 							<a href="#">
 								<i class="fa fa-home"></i>Forum</a>
-							{#  </li>
-																																																																																																																                        {% if is_granted("ROLE_PROPRIETAIRE") %}
-																																																																																																																                        <li><a><i class="fa fa-user"></i> {{ "backend.menu.user"|trans }} <span class="fa fa-chevron-down"></span></a>
-																																																																																																																                            <ul class="nav child_menu">
-																																																																																																																                                <li><a href="#">{{ "backend.menu.manage"|trans }}</a></li>
-																																																																																																																                            </ul>
-																																																																																																																                        </li>
-																																																																																																																                        {% endif %} #}
-							{#   {% if is_granted("ROLE_WRITER") %}
-																																																																																																																                        <li><a><i class="fa fa-bookmark"></i>{{ "backend.menu.categories"|trans }} <span class="fa fa-chevron-down"></span></a>
-																																																																																																																                            <ul class="nav child_menu">
-																																																																																																																                                <li><a href="#">{{ "backend.menu.manage"|trans }}</a></li>
-																																																																																																																                            </ul>
-																																																																																																																                        </li>
-																																																																																																																                        <li><a><i class="fa fa-clipboard"></i> {{ "backend.menu.blog"|trans }} <span class="fa fa-chevron-down"></span></a>
-																																																																																																																                            <ul class="nav child_menu">
-																																																																																																																                                <li><a href="{{ path('app_admin_blogPosts') }}">{{ "backend.menu.manage"|trans }}</a></li>
-																																																																																																																                                {% if is_granted("ROLE_EDITORIAL") %}
-																																																																																																																                                    <li><a href="{{ path('app_admin_allhistorique_blogPosts') }}">{{ "backend.menu.history"|trans }}</a></li>
-																																																																																																																                                {% endif %}
-																																																																																																																                            </ul>
-																																																																																																																                        </li>
-																																																																																																																                        {% endif %} #}
 						</li>
 					</ul>
 				</div>

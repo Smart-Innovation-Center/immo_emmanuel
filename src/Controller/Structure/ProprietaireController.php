@@ -43,6 +43,25 @@ final class ProprietaireController extends BaseController
     }
 
     /**
+     * @Route("/structure/proprietaire/{id<\d+>}/property",methods={"GET", "POST"}, name="structure_proprietaire_property")
+     */
+    public function property(): Response
+    {
+        $repository = $this->getDoctrine()->getRepository(User::class);
+
+        $curt_user = $this->get('security.token_storage')->getToken()->getUser();
+        $curt_user_agce_id = $curt_user->getAgenceId()->getId();
+        $curt_user_str_id = $curt_user->getAgenceId()->getStructureId()->getId();
+        $users_pro = $repository->testUser($curt_user_agce_id, $curt_user_str_id);
+        //dd($users_pro[0]);
+
+        return $this->render('structure/proprietaire/index.html.twig', [
+            'site' => $this->site(),
+            'users' => $users_pro,
+            'controller_name' => 'users',
+        ]);
+    }
+    /**
      * @Route("/structure/proprietaire/new", name="structure_proprietaire_new")
      */
     public function new(Request $request,  UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response

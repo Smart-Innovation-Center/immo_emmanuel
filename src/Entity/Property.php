@@ -596,7 +596,7 @@ class Property
         return $this;
     }
 
-  
+
 
     public function getInSlide(): ?bool
     {

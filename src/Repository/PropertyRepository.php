@@ -56,51 +56,62 @@ class PropertyRepository extends ServiceEntityRepository
 
         return (int) $count;
     }
-    
+
     public function countByCat($value): int
     {
         $count = $this->createQueryBuilder('p')
-        ->select('count(p.id)')
-        ->where("p.category = $value")
+            ->select('count(p.id)')
+            ->where("p.category = $value")
             ->getQuery()
             ->getSingleScalarResult();
         return (int) $count;
     }
-    
+
     public function MinPrice(): int
     {
         $minPrice = $this->createQueryBuilder('p')
-        ->select('min(p.price)')
+            ->select('min(p.price)')
             ->getQuery()
             ->getSingleScalarResult();
         return (int) $minPrice;
     }
-    
+
     public function MaxPrice(): int
     {
         $maxPrice = $this->createQueryBuilder('p')
-        ->select('max(p.price)')
+            ->select('max(p.price)')
             ->getQuery()
             ->getSingleScalarResult();
         return (int) $maxPrice;
     }
-    
+
     public function MinArea(): int
     {
         $minArea = $this->createQueryBuilder('p')
-        ->select('min(p.area)')
+            ->select('min(p.area)')
             ->getQuery()
             ->getSingleScalarResult();
         return (int) $minArea;
     }
-    
+
     public function MaxArea(): int
     {
         $maxArea = $this->createQueryBuilder('p')
-        ->select('max(p.area)')
+            ->select('max(p.area)')
             ->getQuery()
             ->getSingleScalarResult();
         return (int) $maxArea;
+    }
+
+    public function ShowProperty($id): array
+    {
+        $property = $this->createQueryBuilder('p')
+            ->select('p.slug')
+            ->where("p.author = $id")
+            ->getQuery()
+            ->getSingleScalarResult();
+        //dd($property);
+        return (array) $property;
     }
 
     private function findLimit(): int
@@ -115,6 +126,4 @@ class PropertyRepository extends ServiceEntityRepository
     {
         return $this->paginator->paginate($query, $page, $this->findLimit());
     }
-
-    
 }

@@ -86,7 +86,7 @@ final class LocataireController extends BaseController
      *
      * @Route("/structure/locataire/{id<\d+>}/edit",methods={"GET", "POST"}, name="structure_locataire_edit")
      */
-    public function edit(Request $request, User $user, UserService $service, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher): Response
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         /*if (!empty($_POST)) {
             dd($_POST);
