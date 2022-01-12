@@ -44,6 +44,7 @@ final class ProprietaireController extends BaseController
         ]);
     }
 
+
     /**
      * @Route("/structure/proprietaire/{id<\d+>}/property",methods={"GET", "POST"}, name="structure_proprietaire_property")
      */
