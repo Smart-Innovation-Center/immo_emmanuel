@@ -7,6 +7,7 @@ namespace App\Controller\Structure;
 use App\Controller\BaseController;
 use App\Entity\User;
 use App\Entity\Agences;
+use App\Entity\Property;
 use App\Service\Admin\UserService;
 use App\Form\Type\UserProprietaireType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -33,6 +34,7 @@ final class ProprietaireController extends BaseController
         $curt_user_agce_id = $curt_user->getAgenceId()->getId();
         $curt_user_str_id = $curt_user->getAgenceId()->getStructureId()->getId();
         $users_pro = $repository->testUser($curt_user_agce_id, $curt_user_str_id);
+
         //dd($users_pro);
 
         return $this->render('structure/proprietaire/index.html.twig', [
@@ -45,19 +47,22 @@ final class ProprietaireController extends BaseController
     /**
      * @Route("/structure/proprietaire/{id<\d+>}/property",methods={"GET", "POST"}, name="structure_proprietaire_property")
      */
-    public function property(): Response
+    public function property(Request $request, User $user, UserService $service, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher): Response
     {
-        $repository = $this->getDoctrine()->getRepository(User::class);
+        $id = $request->attributes->get('id');
+        //dd($id);
+        $repository = $this->getDoctrine()->getRepository(Property::class);
 
-        $curt_user = $this->get('security.token_storage')->getToken()->getUser();
-        $curt_user_agce_id = $curt_user->getAgenceId()->getId();
-        $curt_user_str_id = $curt_user->getAgenceId()->getStructureId()->getId();
-        $users_pro = $repository->testUser($curt_user_agce_id, $curt_user_str_id);
-        //dd($users_pro[0]);
+        $property = $repository->ShowProperty($id);
+        $user = $request->attributes->get('user');
+        //dd($user);
 
-        return $this->render('structure/proprietaire/index.html.twig', [
+        //dd($property);
+
+        return $this->render('structure/proprietaire/property.html.twig', [
             'site' => $this->site(),
-            'users' => $users_pro,
+            'biens' => $property,
+            'user' => $user,
             'controller_name' => 'users',
         ]);
     }
@@ -110,7 +115,7 @@ final class ProprietaireController extends BaseController
         /*if (!empty($_POST)) {
             dd($_POST);
         }*/
-
+        //dd($request);
         $form = $this->createForm(UserProprietaireType::class, $user);
         $form->handleRequest($request);
 

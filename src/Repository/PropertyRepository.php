@@ -103,15 +103,19 @@ class PropertyRepository extends ServiceEntityRepository
         return (int) $maxArea;
     }
 
-    public function ShowProperty($id): array
+    public function ShowProperty($id)
     {
         $property = $this->createQueryBuilder('p')
-            ->select('p.slug')
-            ->where("p.author = $id")
+            //->from('App\Entity\Property', 'p')
+            ->innerJoin('App\Entity\PropertyDescription', 'prodes')
+            ->innerJoin('App\Entity\User', 'usr')
+            ->where('usr.id = ' . $id . '')
+            ->andWhere('usr.id = p.author')
+            ->andWhere('prodes.property = p.id')
+            ->groupBy('p.id')
             ->getQuery()
-            ->getSingleScalarResult();
-        //dd($property);
-        return (array) $property;
+            ->getResult();
+        return  $property;
     }
 
     private function findLimit(): int

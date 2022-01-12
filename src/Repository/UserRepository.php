@@ -25,7 +25,6 @@ class UserRepository extends ServiceEntityRepository
         return (int) $count;
     }
 
-
     public function testUser($agceid, $strcid)
     {
         $term = "ROLE_PROPRIETAIRE";
@@ -65,6 +64,7 @@ class UserRepository extends ServiceEntityRepository
             ->getArrayResult();
         return $classes;
     }
+
     public function testUserU()
     {
         $term = "ROLE_STRUCTURE";

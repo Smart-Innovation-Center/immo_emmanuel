@@ -54,6 +54,6 @@ class AreaExtension extends AbstractExtension
     public function showPropertys($id)
     {
         $var = $this->bien->ShowProperty($id);
-        return $var;
+        return (array) $var;
     }
 }
