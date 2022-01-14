@@ -78,9 +78,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $profile;
 
     /**
-     * @ORM\OneToMany(targetEntity=Contrat::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Location::class, mappedBy="user")
      */
-    private $contrats;
+    private $location;
 
     /**
      * @ORM\OneToMany(targetEntity=Vente::class, mappedBy="user")
@@ -299,29 +299,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection|Contrat[]
+     * @return Collection|Location[]
      */
-    public function getContrats(): Collection
+    public function getLocation(): Collection
     {
-        return $this->contrats;
+        return $this->location;
     }
 
-    public function addContrat(Contrat $contrat): self
+    public function addContrat(Location $location): self
     {
-        if (!$this->contrats->contains($contrat)) {
-            $this->contrats[] = $contrat;
-            $contrat->setUser($this);
+        if (!$this->location->contains($location)) {
+            $this->location[] = $location;
+            $location->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeContrat(Contrat $contrat): self
+    public function removeContrat(Location $location): self
     {
-        if ($this->contrats->removeElement($contrat)) {
+        if ($this->location->removeElement($location)) {
             // set the owning side to null (unless already changed)
-            if ($contrat->getUser() === $this) {
-                $contrat->setUser(null);
+            if ($location->getUser() === $this) {
+                $location->setUser(null);
             }
         }
 

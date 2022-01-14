@@ -105,9 +105,9 @@ class Property
     private $propertyDescription;
 
     /**
-     * @ORM\OneToMany(targetEntity=Contrat::class, mappedBy="bien")
+     * @ORM\OneToMany(targetEntity=Location::class, mappedBy="bien")
      */
-    private $contrats;
+    private $location;
 
     /**
      * @ORM\OneToMany(targetEntity=Vente::class, mappedBy="bien")
