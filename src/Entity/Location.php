@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=ContratRepository::class)
  */
-class Contrat
+class Location
 {
     /**
      * @ORM\Id
@@ -41,8 +41,8 @@ class Contrat
 
     public function __construct()
     {
-        $this->dateDebut= new \DateTimeImmutable();
-        $this->dateFin= new \DateTimeImmutable();
+        $this->dateDebut = new \DateTimeImmutable();
+        $this->dateFin = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

@@ -103,10 +103,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $isVerified = false;
 
-   /**
+    /**
      * @Assert\EqualTo(propertyPath="password",message="Les deux mot de passe doivent être identiques")
      */
     private $passwordConfirm;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Location::class, mappedBy="locataire")
+     */
+    private $locations;
+
+
 
     public function __construct()
     {
@@ -114,6 +121,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->contrats = new ArrayCollection();
         $this->ventes = new ArrayCollection();
         $this->rdvs = new ArrayCollection();
+        $this->locations = new ArrayCollection();
     }
 
     public function getUsername(): ?string
@@ -416,4 +424,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @return Collection|Location[]
+     */
+    public function getLocations(): Collection
+    {
+        return $this->locations;
+    }
+
+    public function addLocation(Location $location): self
+    {
+        if (!$this->locations->contains($location)) {
+            $this->locations[] = $location;
+            $location->addLocataire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocation(Location $location): self
+    {
+        if ($this->locations->removeElement($location)) {
+            $location->removeLocataire($this);
+        }
+
+        return $this;
+    }
 }
