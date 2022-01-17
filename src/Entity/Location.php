@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ContratRepository;
+use App\Repository\LocationRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ContratRepository::class)
+ * @ORM\Entity(repositoryClass=LocationRepository::class)
  */
 class Location
 {

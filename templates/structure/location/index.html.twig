@@ -1,0 +1,50 @@
+{% extends "structure/bars.html.twig" %}
+
+{% block title %}
+	{{ 'Location'|trans }}
+{% endblock %}
+
+{% block contenpage %}
+	<div class="card mb-3">
+
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table" style="background-color: #FFFFFF">
+					<thead class="thead">
+						<tr>
+							<th class="hidden-sm">{{ 'Libellé de la location' | trans }}</th>
+							<th>{{ 'Locataire' | trans }}</th>
+							<th>{{ 'Libellé du bien' | trans }}</th>
+							<th>{{ 'Loyer' | trans }}</th>
+							<th>{{ 'Caution' | trans }}</th>
+							<th>{{ 'Avance' | trans }}</th>
+							<th>{{ 'Date début' | trans }}</th>
+							<th>{{ 'Date fin ' | trans }}</th>
+							<th>{{ 'table.action' | trans }}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for location in locations %}
+							<tr>
+								<td class="hidden-sm">{{ location.libelle }}</td>
+								<td>{{ location.user.username }}</td>
+								<td>{{ location.bien.slug }}</td>
+								<td>{{ location.loyer }}</td>
+								<td>{{ location.caution }}</td>
+								<td>{{ location.avance }}</td>
+								<td>{{ location.dateDebut | date("m/d/Y") }}</td>
+								<td>{{ location.dateFin | date("m/d/Y") }}</td>
+								<td>
+									{{ include('structure/location/_action_form.html.twig', {location: location}, with_context = false) }}
+								</td>
+							</tr>
+						{% else %}
+							<div class="well">Nothing</div>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

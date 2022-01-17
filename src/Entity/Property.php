@@ -176,7 +176,7 @@ class Property
     {
         $this->photos = new ArrayCollection();
         $this->features = new ArrayCollection();
-        $this->contrats = new ArrayCollection();
+        $this->location = new ArrayCollection();
         $this->ventes = new ArrayCollection();
         $this->rdvs = new ArrayCollection();
     }
@@ -411,29 +411,29 @@ class Property
     }
 
     /**
-     * @return Collection|Contrat[]
+     * @return Collection|Location[]
      */
-    public function getContrats(): Collection
+    public function getLocation(): Collection
     {
-        return $this->contrats;
+        return $this->location;
     }
 
-    public function addContrat(Contrat $contrat): self
+    public function addLocation(Location $location): self
     {
-        if (!$this->contrats->contains($contrat)) {
-            $this->contrats[] = $contrat;
-            $contrat->setBien($this);
+        if (!$this->location->contains($location)) {
+            $this->location[] = $location;
+            $location->setBien($this);
         }
 
         return $this;
     }
 
-    public function removeContrat(Contrat $contrat): self
+    public function removeLocation(Location $location): self
     {
-        if ($this->contrats->removeElement($contrat)) {
+        if ($this->location->removeElement($location)) {
             // set the owning side to null (unless already changed)
-            if ($contrat->getBien() === $this) {
-                $contrat->setBien(null);
+            if ($location->getBien() === $this) {
+                $location->setBien(null);
             }
         }
 
