@@ -6,17 +6,13 @@ namespace App\Controller\Structure;
 
 use App\Controller\BaseController;
 use App\Entity\Location;
+use App\Entity\User;
 use App\Service\Structure\LocationService;
 use App\Form\Type\LocationType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\Form\ClickableInterface;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManagerInterface;
-
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Validator\Constraints\Length;
 
 final class LocationController extends BaseController
 {
@@ -39,9 +35,22 @@ final class LocationController extends BaseController
     /**
      * @Route("/structure/location/new", name="structure_location_new")
      */
-    public function new(Request $request, LocationService $service, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, LocationService $service): Response
     {
         $location = new Location();
+
+        $repository = $this->getDoctrine()->getRepository(User::class);
+
+        $user = $repository->findAll();
+
+
+        /*foreach ($user as $use) {
+            if ($use->getRoles() == "ROLE_STRUCTURE") {
+                dd('je suis l\'admin');
+            }
+        }*/
+
+        //dd($user[0]->getRoles());
 
         //$repository = $this->getDoctrine()->getRepository(Location::class);
 
@@ -58,13 +67,14 @@ final class LocationController extends BaseController
         return $this->render('structure/location/new.html.twig', [
             'site' => $this->site(),
             'locations' => $location,
+            'users' => $user,
             'form' => $form->createView(),
             'controller_name' => 'structure_location',
         ]);
     }
 
     /**
-     * Displays a form to edit an existing location entity.
+     * Displays a form to edit an existing Location entity.
      *
      * @Route("/structure/location/{id<\d+>}/edit",methods={"GET", "POST"}, name="structure_location_edit")
      */

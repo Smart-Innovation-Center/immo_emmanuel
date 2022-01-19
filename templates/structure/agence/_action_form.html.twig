@@ -1,10 +1,6 @@
 <form action="{{ url('structure_agence_delete', {id: agence.id}) }}" method="post" data-confirmation="true" id="delete-form-{{ agence.id }}">
-	<a href="{{ url('structure_agence_edit', {id: agence.id}) }}" class="btn btn-sm btn-outline-primary">{{ 'action.edit' | trans }}</a>
-
+	<a href="{{ url('structure_agence_edit', {id: agence.id}) }}" class="btn btn-sm btn-outline-primary">{{ 'Modifier'}}</a>
 	&nbsp;&nbsp;&nbsp;
-
 	<input type="hidden" name="token" value="{{ csrf_token('delete') }}"/>
-	<button type="submit" class="btn btn-sm btn-danger" onclick="if(confirm('{{ 'confirmation.delete_item' | trans }}')){ return true }else{ return false }">
-		{{ 'action.delete' | trans }}
-	</button>
+	<a href="{{ url('structure_agence_agents', {id: agence.id}) }}" class="btn btn-sm btn-outline-primary">{{ 'Agents'}}</a>
 </form>

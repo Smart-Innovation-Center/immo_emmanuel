@@ -78,4 +78,13 @@ class UserRepository extends ServiceEntityRepository
             ->getArrayResult();
         return $classes;
     }
+
+    public function ShowAgent($id)
+    {
+        $agent = $this->createQueryBuilder('u')
+            ->where('u.AgenceId = ' . $id . '')
+            ->getQuery()
+            ->getResult();
+        return $agent;
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller\Structure;
@@ -38,14 +39,14 @@ final class AgenceController extends BaseController
     /**
      * @Route("/structure/agence/new", name="structure_agence_new")
      */
-     public function new (Request $request, AgenceService $service, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, AgenceService $service, EntityManagerInterface $entityManager): Response
     {
-       
+
         $agences = new Agences();
-         if(!empty($_POST)){
-            $id_structure= $_POST['structure_id'];
+        if (!empty($_POST)) {
+            $id_structure = $_POST['structure_id'];
         }
-        
+
 
         $form = $this->createForm(AgenceStructureType::class, $agences)
             ->add('saveAndCreateNew', SubmitType::class);
@@ -62,7 +63,7 @@ final class AgenceController extends BaseController
             }
             return $this->redirectToRoute('structure_agence_new');
         }
-        
+
         return $this->render('structure/agence/new.html.twig', [
             'site' => $this->site(),
             'agences' => $agences,
@@ -77,23 +78,23 @@ final class AgenceController extends BaseController
      */
     public function edit(Request $request, Agences $agences, AgenceService $service): Response
     {
-        
+
         $form = $this->createForm(AgenceStructureType::class, $agences);
         $form->handleRequest($request);
 
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
             $service->update($agences);
             return $this->redirectToRoute('structure_agence');
         }
-    
+
         return $this->render('structure/agence/edit.html.twig', [
             'site' => $this->site(),
             'form' => $form->createView(),
         ]);
     }
 
-   /**
+    /**
      * Deletes a Agence entity.
      *
      * @Route("structure/agence{id<\d+>}/delete", methods={"POST"}, name="structure_agence_delete")
@@ -108,4 +109,23 @@ final class AgenceController extends BaseController
         return $this->redirectToRoute('structure_agence');
     }
 
+    /**
+     * @Route("/structure/agence/{id<\d+>}/agents",methods={"GET", "POST"}, name="structure_agence_agents")
+     */
+    public function agents(Request $request): Response
+    {
+        $id = $request->attributes->get('id');
+
+        $repository = $this->getDoctrine()->getRepository(User::class);
+
+
+        $agents = $repository->ShowAgent($id);
+        //dd($agents);
+
+        return $this->render('structure/agence/agent.html.twig', [
+            'site' => $this->site(),
+            'agents' => $agents,
+            'controller_name' => 'structures'
+        ]);
+    }
 }

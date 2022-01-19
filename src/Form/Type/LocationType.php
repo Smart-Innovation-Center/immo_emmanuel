@@ -20,15 +20,6 @@ final class LocationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'attr' => [
-                    'class' => 'form-control',
-                ],
-                'choice_label' => 'username',
-                'placeholder' => 'Selectionner un Locataire',
-                'label' => 'Locataire',
-            ])
             ->add('bien', EntityType::class, [
                 'class' => Property::class,
                 'attr' => [
