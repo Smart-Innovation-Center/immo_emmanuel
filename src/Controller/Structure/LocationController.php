@@ -41,17 +41,18 @@ final class LocationController extends BaseController
 
         $repository = $this->getDoctrine()->getRepository(User::class);
 
-        $user = $repository->findAll();
+        $curt_user = $this->get('security.token_storage')->getToken()->getUser();
+        $curt_user_agce_id = $curt_user->getAgenceId()->getId();
+        $curt_user_str_id = $curt_user->getAgenceId()->getStructureId()->getId();
 
-
+        $user = $repository->testUserL($curt_user_agce_id, $curt_user_str_id);
+        //$user = $repository->findAll();
         /*foreach ($user as $use) {
             if ($use->getRoles() == "ROLE_STRUCTURE") {
                 dd('je suis l\'admin');
             }
         }*/
-
         //dd($user[0]->getRoles());
-
         //$repository = $this->getDoctrine()->getRepository(Location::class);
 
         $form = $this->createForm(LocationType::class, $location);

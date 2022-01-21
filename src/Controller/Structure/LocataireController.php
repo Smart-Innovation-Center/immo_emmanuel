@@ -28,7 +28,7 @@ final class LocataireController extends BaseController
     {
         $repository = $this->getDoctrine()->getRepository(User::class);
 
-        $users = $repository->findAll();
+        //$users = $repository->findAll();
         $curt_user = $this->get('security.token_storage')->getToken()->getUser();
         $curt_user_agce_id = $curt_user->getAgenceId()->getId();
         $curt_user_str_id = $curt_user->getAgenceId()->getStructureId()->getId();

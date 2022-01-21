@@ -12,10 +12,7 @@
 			<label for="select-search-1" class="form-label rd-input-label focus not-empty">user</label>
 			<select id="select-search-1" name="user" id="user" data-minimum-results-for-search="Infinity" class="form-control select-filter select2-hidden-accessible" tabindex="-1" aria-hidden="true">
 				{% for user in users %}
-					{% if (user.roles == "[\"ROLE_LOCATAIRE\"]")  %}
-
-						<option value="{{user.id}}" required="required">{{user.username}}</option>
-					{% endif %}
+					<option value="{{user.id}}" required="required">{{user.username}}</option>
 				{% endfor %}
 			</select>
 		</div>
