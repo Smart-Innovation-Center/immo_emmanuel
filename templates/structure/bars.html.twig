@@ -3,14 +3,13 @@
 	<div class="col-md-3 left_col menu_fixed">
 		<div class="left_col scroll-view">
 			<div class="navbar nav_title" style="border: 0;">
-				<a href="#" class="site_title">
+				<a href="{{path('structure')}}" class="site_title">
 					<i class="fa fa-paw"></i>
 					<span>Structure</span>
 				</a>
 			</div>
 
 			<div class="clearfix"></div>
-
 			<!-- menu profile quick info -->
 			<div class="profile clearfix">
 				<div class="profile_pic">
@@ -18,15 +17,9 @@
 						<img src="{{ app.user.avatarUrl(50) }}" alt="..." class="img-circle profile_img">
 					{% endif %}
 				</div>
-				{#  <div class="profile_info">
-																																																																																																																																																																																																																																 <span>{{ "backend.global.welcome"|trans }},</span>
-																																																																																																																																																																																																																																	 <h2>{{ app.user.username }}</h2>
-																																																																																																																																																																																																																																</div> #}
 			</div>
 			<!-- /menu profile quick info -->
-
 			<br/>
-
 			<!-- sidebar menu -->
 			<div id="sidebar-menu" class="main_menu_side hidden-print main_menu ">
 				<div class="menu_section">
@@ -62,7 +55,6 @@
 								</li>
 							</ul>
 						</li>
-
 						<li>
 							<a>
 								<i class="fa fa-users" aria-hidden="true"></i>Locataire<span class="fa fa-chevron-down"></span>
@@ -79,7 +71,6 @@
 						<li>
 							<a>
 								<i class="fa fa-street-view"></i>Location<span class="fa fa-chevron-down"></span>
-
 							</a>
 							<ul class="nav child_menu">
 								<li>
@@ -93,104 +84,28 @@
 						<li>
 							<a>
 								<i class="fa fa-money" aria-hidden="true"></i>Finnaces<span class="fa fa-chevron-down"></span>
-
 							</a>
 							<ul class="nav child_menu">
 								<li>
-									<a href=" {{ path('structure_locataire_new') }}">Création</a>
+									<a href="#">Création</a>
 								</li>
 								<li>
-									<a href="{{ path('structure_locataire') }}">Liste</a>
+									<a href="#">Liste</a>
 								</li>
 							</ul>
 						</li>
-
-
 						<li>
 							<a href="#">
 								<i class="fa fa-cogs"></i>
 								Paramètres</a>
 						</li>
-						{#<li>
-																																																																																																																																																																																																																																												<a href="#">
-																																																																																																																																																																																																																																													<i class="fa fa-list"></i>
-																																																																																																																																																																																																																																													Inventaires</a>
-																																																																																																																																																																																																																																											</li>#}
-					{#<li>
-																																																																																																																																																																																																																										<a href="#">
-																																																																																																																																																																																																																											<i class="fa fa-calendar-week"></i>Etat des lieux</a>
-																																																																																																																																																																																																																			
-																																																																																																																																																																																																																									</li>#}
-						{#<li>
-																																																																																																																																																																																																																																																	<a href="#">
-																																																																																																																																																																																																																																																		<i class="fa fa-coins"></i>Finances</a>
-																																																																																																																																																																																																																																										
-																																																																																																																																																																																																																																																</li>#}
-						{#<li>
-																																																																																																																																																																																																																																																	<a href="#">
-																																																																																																																																																																																																																																																		<i class="fa fa-home"></i>Documents</a>
-																																																																																																																																																																																																																																																</li>#}
-						{#<li>
-																																																																																																																																																																																																																																																	<a href="#">
-																																																																																																																																																																																																																																																		<i class="fa fa-home"></i>Carnet</a>
-																																																																																																																																																																																																																																																</li>#}
-						{#<li>
-																																																																																																																																																																																																																																																	<a href="#">
-																																																																																																																																																																																																																																																		<i class="fa fa-home"></i>Interventions</a>
-																																																																																																																																																																																																																																																</li>#}
-						{#<li>
-																																																																																																																																																																																																																																																	<a href="#">
-																																																																																																																																																																																																																																																		<i class="fa fa-home"></i>Tâches</a>
-																																																																																																																																																																																																																																																</li>#}
-						{#<li>
-																																																																																																																																																																																																																																																	<a href="#">
-																																																																																																																																																																																																																																																		<i class="fa fa-home"></i>Notes</a>
-																																																																																																																																																																																																																																																</li>#}
-						{#<li>
-																																																																																																																																																																																																																																																	<a href="#">
-																																																																																																																																																																																																																																																		<i class="fa fa-home"></i>Messages</a>
-																																																																																																																																																																																																																																																</li>#}
-						{#<li>
-																																																																																																																																																																																																																																																	<a href="#">
-																																																																																																																																																																																																																																																		<i class="fa fa-home"></i>Candidats</a>
-																																																																																																																																																																																																																																																</li>#}
-						{#<li>
-																																																																																																																																																																																																																																																	<a href="#">
-																																																																																																																																																																																																																																																		<i class="fa fa-home"></i>Forum</a>
-																																																																																																																																																																																																																																																	{#  </li>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														                        {% if is_granted("ROLE_PROPRIETAIRE") %}
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														                        <li><a><i class="fa fa-user"></i> {{ "backend.menu.user"|trans }} <span class="fa fa-chevron-down"></span></a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														                            <ul class="nav child_menu">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														                                <li><a href="#">{{ "backend.menu.manage"|trans }}</a></li>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														                            </ul>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														                        </li>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														                        {% endif %} #}
-						{#   {% if is_granted("ROLE_WRITER") %}
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														                        <li><a><i class="fa fa-bookmark"></i>{{ "backend.menu.categories"|trans }} <span class="fa fa-chevron-down"></span></a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														                            <ul class="nav child_menu">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														                                <li><a href="#">{{ "backend.menu.manage"|trans }}</a></li>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														                            </ul>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														                        </li>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														                        <li><a><i class="fa fa-clipboard"></i> {{ "backend.menu.blog"|trans }} <span class="fa fa-chevron-down"></span></a>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														                            <ul class="nav child_menu">
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														                                <li><a href="{{ path('app_admin_blogPosts') }}">{{ "backend.menu.manage"|trans }}</a></li>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														                                {% if is_granted("ROLE_EDITORIAL") %}
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														                                    <li><a href="{{ path('app_admin_allhistorique_blogPosts') }}">{{ "backend.menu.history"|trans }}</a></li>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														                                {% endif %}
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														                            </ul>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														                        </li>
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														                        {% endif %} #}
-						{#</li>#}
 					</ul>
 				</div>
-
 			</div>
 			<!-- /sidebar menu -->
-
 			<!-- /menu footer buttons -->
 		</div>
 	</div>
-
 	<!-- top navigation -->
 	<div class="top_nav">
 		<div class="nav_menu">
@@ -248,10 +163,7 @@
 						</ul>
 					</li>
 				</div>
-
 			</li>
-
-
 		</ul>
 
 	</nav>

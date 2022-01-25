@@ -87,4 +87,45 @@ class UserRepository extends ServiceEntityRepository
             ->getResult();
         return $agent;
     }
+
+    public function CountL($strcid)
+    {
+        $term = "ROLE_LOCATAIRE";
+        $qb = $this->createQueryBuilder('u');
+        $classes = $qb
+            //->select('count(u.id)')
+            ->from('App\Entity\User', 'usr')
+            ->join('App\Entity\Agences', 'agce')
+            //->join('App\Entity\User', 'usr')
+            ->join('App\Entity\Structures', 'strc')
+            ->where('agce.structure_id = ' . $strcid . '')
+            ->AndWhere('u.AgenceId  = agce.id')
+            ->AndWhere('u.roles LIKE :rle')
+            ->setParameter('rle', '%' . $term . '%')
+            //->groupBy('count(u.username)')
+            ->getQuery()
+            ->getArrayResult();
+        return $classes;
+    }
+
+    public function CountP($strcid)
+    {
+        $term = "ROLE_PROPRIETAIRE";
+        $qb = $this->createQueryBuilder('u');
+        $classes = $qb
+            //
+            ->from('App\Entity\User', 'usr')
+            ->join('App\Entity\Agences', 'agce')
+            //->join('App\Entity\User', 'usr')
+            ->join('App\Entity\Structures', 'strc')
+            ->where('agce.structure_id = ' . $strcid . '')
+            ->AndWhere('u.AgenceId  = agce.id')
+            ->AndWhere('u.roles LIKE :rle')
+            ->setParameter('rle', '%' . $term . '%')
+            ->groupBy('u.username')
+            ->select('count(u.id)')
+            ->getQuery()
+            ->getArrayResult();
+        return $classes;
+    }
 }

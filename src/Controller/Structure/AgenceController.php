@@ -72,7 +72,7 @@ final class AgenceController extends BaseController
     }
 
     /**
-     * Displays a form to edit an existing Agences entity.
+     * Displays a form to edit an existing Agence entity.
      *
      * @Route("/structure/agence/{id<\d+>}/edit",methods={"GET", "POST"}, name="structure_agence_edit")
      */

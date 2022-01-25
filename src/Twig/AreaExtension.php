@@ -4,6 +4,7 @@ namespace App\Twig;
 
 use Twig\Extension\AbstractExtension;
 use App\Repository\PropertyRepository;
+use App\Repository\UserRepository;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
@@ -12,13 +13,18 @@ class AreaExtension extends AbstractExtension
 
     /**
      * @var PropertyRepository
+     * @var UserRepository
      */
     private $bien;
+    private $lo;
 
-    public function __construct(PropertyRepository $bien)
+
+    public function __construct(PropertyRepository $bien, UserRepository $lo)
     {
         $this->bien = $bien;
+        $this->lo = $lo;
     }
+
 
     public function getFilters(): array
     {
@@ -36,6 +42,7 @@ class AreaExtension extends AbstractExtension
             new TwigFunction('minArea', [$this, 'minAreas']),
             new TwigFunction('maxArea', [$this, 'maxAreas']),
             new TwigFunction('showProperty', [$this, 'showPropertys']),
+            new TwigFunction('countLocataire', [$this, 'countLocataires']),
         ];
     }
 
@@ -54,6 +61,12 @@ class AreaExtension extends AbstractExtension
     public function showPropertys($id)
     {
         $var = $this->bien->ShowProperty($id);
+        return (array) $var;
+    }
+
+    public function countLocataires($agceid, $strcid)
+    {
+        $var = $this->lo->CountL($agceid, $strcid);
         return (array) $var;
     }
 }
