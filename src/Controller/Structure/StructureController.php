@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\Controller\Structure;
 
 use App\Controller\BaseController;
+use App\Entity\Agences;
+use App\Entity\Location;
 use App\Entity\User;
 use App\Form\Type\UserType;
 use App\Repository\UserRepository;
 use App\Service\Admin\UserService;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Form\ClickableInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,15 +28,24 @@ final class StructureController extends BaseController
         $curt_user = $this->get('security.token_storage')->getToken()->getUser();
         $curt_user_agce_id = $curt_user->getAgenceId()->getId();
         $curt_user_str_id = $curt_user->getAgenceId()->getStructureId()->getId();
+
         $countTenant = $repository->CountL($curt_user_agce_id, $curt_user_str_id);
         $countOwner = $repository->CountP($curt_user_agce_id, $curt_user_str_id);
 
-        //dd($countTenant);
+        $repoAgence = $this->getDoctrine()->getRepository(Agences::class);
+        $countAgency = $repoAgence->countA($curt_user_str_id);
+
+        $repoLocation = $this->getDoctrine()->getRepository(Location::class);
+        $curt_user_id = $curt_user->getId();
+        $conLocation = $repoLocation->countLo($curt_user_id);
+
 
         return $this->render('structure/structure/index.html.twig', [
             'site' => $this->site(),
-            'countTenant' => $countTenant,
-            'countOwner' => $countOwner,
+            'countTenant' => count($countTenant),
+            'countOwner' => count($countOwner),
+            'countAgency' => count($countAgency),
+            'conLocation' => count($conLocation),
         ]);
     }
 

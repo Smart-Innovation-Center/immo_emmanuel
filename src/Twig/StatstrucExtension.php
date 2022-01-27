@@ -3,22 +3,11 @@
 namespace App\Twig;
 
 use Twig\Extension\AbstractExtension;
-use App\Repository\PropertyRepository;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
-final class CountCateltsExtension extends AbstractExtension
+class StatstrucExtension extends AbstractExtension
 {
-
-    /**
-     * @var PropertyRepository
-     */
-    private $bien;
-
-    public function __construct(PropertyRepository $bien)
-    {
-        $this->bien = $bien;
-    }
     public function getFilters(): array
     {
         return [
@@ -32,14 +21,12 @@ final class CountCateltsExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('countCatelt', [$this, 'countcategoretls']),
+            new TwigFunction('function_name', [$this, 'doSomething']),
         ];
     }
 
-    public function countcategoretls($value)
+    public function doSomething($value)
     {
         // ...
-        $count = $this->bien->countByCat($value);
-        return $count;
     }
 }

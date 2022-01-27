@@ -64,9 +64,9 @@ class AreaExtension extends AbstractExtension
         return (array) $var;
     }
 
-    public function countLocataires($agceid, $strcid)
+    /*public function countLocataires($agceid, $strcid)
     {
         $var = $this->lo->CountL($agceid, $strcid);
         return (array) $var;
-    }
+    }*/
 }

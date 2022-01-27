@@ -113,6 +113,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $locations;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Location::class, mappedBy="recorder")
+     */
+    private $recorderLocations;
+
 
 
     public function __construct()
@@ -122,6 +127,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->ventes = new ArrayCollection();
         $this->rdvs = new ArrayCollection();
         $this->locations = new ArrayCollection();
+        $this->recorderLocations = new ArrayCollection();
     }
 
     public function getUsername(): ?string
@@ -446,6 +452,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->locations->removeElement($location)) {
             $location->removeLocataire($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Location[]
+     */
+    public function getRecorderLocations(): Collection
+    {
+        return $this->recorderLocations;
+    }
+
+    public function addRecorderLocation(Location $recorderLocation): self
+    {
+        if (!$this->recorderLocations->contains($recorderLocation)) {
+            $this->recorderLocations[] = $recorderLocation;
+            $recorderLocation->setRecorder($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecorderLocation(Location $recorderLocation): self
+    {
+        if ($this->recorderLocations->removeElement($recorderLocation)) {
+            // set the owning side to null (unless already changed)
+            if ($recorderLocation->getRecorder() === $this) {
+                $recorderLocation->setRecorder(null);
+            }
         }
 
         return $this;

@@ -88,7 +88,7 @@ class UserRepository extends ServiceEntityRepository
         return $agent;
     }
 
-    public function CountL($strcid)
+    public function CountL($agceid, $strcid)
     {
         $term = "ROLE_LOCATAIRE";
         $qb = $this->createQueryBuilder('u');
@@ -102,18 +102,18 @@ class UserRepository extends ServiceEntityRepository
             ->AndWhere('u.AgenceId  = agce.id')
             ->AndWhere('u.roles LIKE :rle')
             ->setParameter('rle', '%' . $term . '%')
-            //->groupBy('count(u.username)')
+            ->groupBy('u.username')
             ->getQuery()
             ->getArrayResult();
         return $classes;
     }
 
-    public function CountP($strcid)
+    public function CountP($agceid, $strcid)
     {
         $term = "ROLE_PROPRIETAIRE";
         $qb = $this->createQueryBuilder('u');
         $classes = $qb
-            //
+            //->select('count(u.id)')
             ->from('App\Entity\User', 'usr')
             ->join('App\Entity\Agences', 'agce')
             //->join('App\Entity\User', 'usr')
@@ -123,7 +123,6 @@ class UserRepository extends ServiceEntityRepository
             ->AndWhere('u.roles LIKE :rle')
             ->setParameter('rle', '%' . $term . '%')
             ->groupBy('u.username')
-            ->select('count(u.id)')
             ->getQuery()
             ->getArrayResult();
         return $classes;

@@ -19,32 +19,14 @@ class AgencesRepository extends ServiceEntityRepository
         parent::__construct($registry, Agences::class);
     }
 
-    // /**
-    //  * @return Agences[] Returns an array of Agences objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function countA($strcid)
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
+        $qb = $this->createQueryBuilder('a');
+        $classes = $qb
+            //->select('count(u.id)')
+            ->where('a.structure_id = ' . $strcid . '')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getArrayResult();
+        return $classes;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Agences
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

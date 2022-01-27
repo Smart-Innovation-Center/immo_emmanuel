@@ -12,6 +12,7 @@ use App\Form\Type\LocationType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraints\Length;
 
 final class LocationController extends BaseController
@@ -35,7 +36,7 @@ final class LocationController extends BaseController
     /**
      * @Route("/structure/location/new", name="structure_location_new")
      */
-    public function new(Request $request, LocationService $service): Response
+    public function new(Request $request, LocationService $service, EntityManagerInterface $entityManager): Response
     {
         $location = new Location();
 
@@ -46,21 +47,18 @@ final class LocationController extends BaseController
         $curt_user_str_id = $curt_user->getAgenceId()->getStructureId()->getId();
 
         $user = $repository->testUserL($curt_user_agce_id, $curt_user_str_id);
-        //$user = $repository->findAll();
-        /*foreach ($user as $use) {
-            if ($use->getRoles() == "ROLE_STRUCTURE") {
-                dd('je suis l\'admin');
-            }
-        }*/
-        //dd($user[0]->getRoles());
-        //$repository = $this->getDoctrine()->getRepository(Location::class);
+
 
         $form = $this->createForm(LocationType::class, $location);
         $form->handleRequest($request);
 
+        //dd($_POST);
 
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
+            $location->setUser($entityManager->getReference(User::class, $_POST['user']));
+            $location->setRecorder($entityManager->getReference(User::class, $_POST['recorder']));
+            $entityManager->persist($location);
+            $entityManager->flush();
             $service->create($location);
             return $this->redirectToRoute('structure_location');
         }

@@ -9,6 +9,10 @@
 		{{ form_start(form) }}
 
 		<div class="form-group">
+			<input class="form-control" type="hidden" id="recorder" name="recorder" value="{{ app.user.id }}" readonly="readonly"/>
+		</div>
+
+		<div class="form-group">
 			<label for="select-search-1" class="form-label rd-input-label focus not-empty">user</label>
 			<select id="select-search-1" name="user" id="user" data-minimum-results-for-search="Infinity" class="form-control select-filter select2-hidden-accessible" tabindex="-1" aria-hidden="true">
 				{% for user in users %}

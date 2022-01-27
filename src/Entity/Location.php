@@ -59,6 +59,11 @@ class Location
      */
     private $avance;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=user::class, inversedBy="recorderLocations")
+     */
+    private $recorder;
+
     public function __construct()
     {
         $this->dateDebut = new \DateTimeImmutable();
@@ -162,6 +167,18 @@ class Location
     public function setAvance(?int $avance): self
     {
         $this->avance = $avance;
+
+        return $this;
+    }
+
+    public function getRecorder(): ?user
+    {
+        return $this->recorder;
+    }
+
+    public function setRecorder(?user $recorder): self
+    {
+        $this->recorder = $recorder;
 
         return $this;
     }
