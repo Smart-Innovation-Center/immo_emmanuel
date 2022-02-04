@@ -1,0 +1,37 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block title %}
+	{{ 'dashboard'|trans }}
+{% endblock %}
+
+{% block body %}
+	<div class="card mb-3">
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table" style="background-color: #FFFFFF">
+					<thead class="thead">
+						<th>Nom d'utilisateur</th>
+						<th>Email</th>
+						{#<tr>Role</tr>#}
+					</thead>
+					<tbody>
+						{% for owner in owners %}
+							<tr>
+								<td>{{owner.username}}</td>
+								<td>{{owner.email}}</td>
+								{#<tr>{{tenant.roles | trans}}</tr>#}
+
+							</tr>
+
+						{% else %}
+							<tr>
+								<td>{{ 'no_items_found' | trans }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
+{% endblock %}

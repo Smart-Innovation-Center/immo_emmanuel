@@ -10,7 +10,7 @@ use Twig\TwigFunction;
 class MinPricePropertyExtension extends AbstractExtension
 {
 
-    
+
     /**
      * @var PropertyRepository
      */
@@ -20,7 +20,7 @@ class MinPricePropertyExtension extends AbstractExtension
     {
         $this->bien = $bien;
     }
-    
+
     public function getFilters(): array
     {
         return [
@@ -36,18 +36,27 @@ class MinPricePropertyExtension extends AbstractExtension
         return [
             new TwigFunction('minPrice', [$this, 'MinPrices']),
             new TwigFunction('maxPrice', [$this, 'MaxPrices']),
+            new TwigFunction('countPropertyByType', [$this, 'CountPropertiesByType'])
         ];
     }
 
     public function MinPrices()
     {
         $var =  $this->bien->MinPrice();
-        return $var;  
+        return $var;
     }
-    
+
     public function MaxPrices()
     {
         $var =  $this->bien->MaxPrice();
-        return $var;  
+        return $var;
     }
+
+    public function CountPropertiesByType($id)
+    {
+        $var =  $this->bien->CountPropertyByType($id);
+        return $var;
+    }
+
+    
 }

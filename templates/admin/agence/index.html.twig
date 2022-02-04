@@ -27,7 +27,7 @@
 	<div class="card-body">
 		<div class="table-responsive">
 			<table class="table" style="background-color: #FFFFFF">
-				<thead class="thead">
+					<thead class="thead">
 					<tr>
 						<th>{{"Structure" | trans}}</th>
 						<th>{{ 'Nom de l\'agence' | trans }}</th>
@@ -38,7 +38,6 @@
 						</tr>
 				 	</thead>
 					<tbody>
-
                         {% for agence in agences %}
 							<tr>
 								<td>{{agence.StructureId.libelle |raw }}</td>

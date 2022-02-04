@@ -127,4 +127,29 @@ class UserRepository extends ServiceEntityRepository
             ->getArrayResult();
         return $classes;
     }
+
+
+    public function nbr_of_Tenant()
+    {
+        $term = "ROLE_LOCATAIRE";
+        $qb = $this->createQueryBuilder('u');
+        $classes = $qb
+            ->where('u.roles LIKE :rle ')
+            ->setParameter('rle', '%' . $term . '%')
+            ->getQuery()
+            ->getArrayResult();
+        return $classes;
+    }
+
+    public function nbr_of_owner()
+    {
+        $term = "ROLE_PROPRIETAIRE";
+        $qb = $this->createQueryBuilder('u');
+        $classes = $qb
+            ->where('u.roles LIKE :rle ')
+            ->setParameter('rle', '%' . $term . '%')
+            ->getQuery()
+            ->getArrayResult();
+        return $classes;
+    }
 }

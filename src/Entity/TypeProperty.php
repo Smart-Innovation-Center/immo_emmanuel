@@ -20,18 +20,30 @@ class TypeProperty
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $libelle;
 
     /**
      * @ORM\OneToMany(targetEntity=property::class, mappedBy="typeProperty")
      */
-    private $property;
+    private $properties;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $couleurMenu;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $fontawesome;
+
+   
     public function __construct()
     {
         $this->property = new ArrayCollection();
+        $this->properties = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -54,15 +66,15 @@ class TypeProperty
     /**
      * @return Collection|property[]
      */
-    public function getProperty(): Collection
+    public function getProperties(): Collection
     {
-        return $this->property;
+        return $this->properties;
     }
 
     public function addProperty(property $property): self
     {
-        if (!$this->property->contains($property)) {
-            $this->property[] = $property;
+        if (!$this->properties->contains($property)) {
+            $this->properties[] = $property;
             $property->setTypeProperty($this);
         }
 
@@ -71,7 +83,7 @@ class TypeProperty
 
     public function removeProperty(property $property): self
     {
-        if ($this->property->removeElement($property)) {
+        if ($this->properties->removeElement($property)) {
             // set the owning side to null (unless already changed)
             if ($property->getTypeProperty() === $this) {
                 $property->setTypeProperty(null);
@@ -80,4 +92,30 @@ class TypeProperty
 
         return $this;
     }
+
+    public function getCouleurMenu(): ?string
+    {
+        return $this->couleurMenu;
+    }
+
+    public function setCouleurMenu(string $couleurMenu): self
+    {
+        $this->couleurMenu = $couleurMenu;
+
+        return $this;
+    }
+
+    public function getFontawesome(): ?string
+    {
+        return $this->fontawesome;
+    }
+
+    public function setFontawesome(string $fontawesome): self
+    {
+        $this->fontawesome = $fontawesome;
+
+        return $this;
+    }
+
+  
 }

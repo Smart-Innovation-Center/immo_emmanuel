@@ -103,6 +103,15 @@ class PropertyRepository extends ServiceEntityRepository
         return (int) $maxArea;
     }
 
+    public function CountPropertyByType($id)
+    {
+        $type = $this->createQueryBuilder('p')
+            ->where('p.typeProperty = ' . $id . '')
+            ->getQuery()
+            ->getArrayResult();
+        return count($type);
+    }
+
     public function ShowProperty($id)
     {
         $property = $this->createQueryBuilder('p')
@@ -117,6 +126,17 @@ class PropertyRepository extends ServiceEntityRepository
             ->getResult();
         return  $property;
     }
+
+
+    public function typeProperty($id)
+    {
+        $type = $this->createQueryBuilder('p')
+            ->where('p.typeProperty = ' . $id . '')
+            ->getQuery()
+            ->getResult();
+        return $type;
+    }
+
 
     private function findLimit(): int
     {

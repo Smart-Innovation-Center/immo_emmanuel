@@ -9,7 +9,7 @@ use App\Entity\User;
 use App\Form\Type\UserType;
 use App\Repository\UserRepository;
 use App\Service\Admin\UserService;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use App\Service\Proprietaire\LocataireService;
 use Symfony\Component\Form\ClickableInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;

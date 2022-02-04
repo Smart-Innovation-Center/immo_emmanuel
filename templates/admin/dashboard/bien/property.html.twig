@@ -1,0 +1,31 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block title %}
+	{{ 'dashboard'|trans }}
+{% endblock %}
+
+{% block body %}
+	<div class='row'>
+		{% for type_property in type_properties %}
+			<div class="col-xl-3 col-sm-6 mb-3">
+				<div class="card text-dark bg-white o-hidden h-100">
+					<div class="card-body" style="background-color:{{type_property.couleurMenu}}; color:white;">
+
+						<div class="card-body-icon" style="color:white;">
+							<i class="{{type_property.fontawesome}}"></i>
+						</div>
+						<div class="mr-5">{{ type_property.libelle}}
+							<span class="badge">{{ countPropertyByType(type_property.id) }}</span>
+						</div>
+					</div>
+					<a class="card-footer text-dark clearfix small z-1" href="{{ path('admin_property_by_type', {id:type_property.id})}}">
+						<span class="float-left btn btn-default" style="background-color:{{type_property.couleurMenu}}; color:white;">{{ 'Détails'|trans }}</span>
+						<span class="float-right">
+							<i class="fas fa-angle-right"></i>
+						</span>
+					</a>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

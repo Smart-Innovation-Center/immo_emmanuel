@@ -40,4 +40,15 @@ final class PhotoRepository extends ServiceEntityRepository
             ++$i;
         }
     }
+
+    public function Photo($id)
+    {
+        $type = $this->createQueryBuilder('p')
+            ->select('p.photo')
+            ->where('p.property = ' . $id . '')
+            ->andWhere('p.sort_order=1')
+            ->getQuery()
+            ->getResult();
+        return ($type);
+    }
 }

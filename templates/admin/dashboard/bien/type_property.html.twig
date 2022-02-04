@@ -1,0 +1,43 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block title %}
+	{{ 'dashboard'|trans }}
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		{% for property_by_type in properties_by_type %}
+			<div class="col-lg-4 col-md-6 col-sm-12">
+				<div class="card">
+					<a href="{{ path('property_show', { 'id': property_by_type.id, 'citySlug': property_by_type.city.slug, 'slug': property_by_type.slug }) }}">
+						{% for photo in property_by_type.photos | slice(0, 1) %}
+							<img class="card-img-top" src="/uploads/images/small/{{ photo.photo }}" alt="{{ property_by_type.address }}" title="{{ property_by_type.address }}"/>
+						{% else %}
+							<img class="card-img-top border-bottom" src="{{ asset('/images/no-photo.png') }}" alt="{{ property_by_type.address }}" title="{{ property_by_type.address }}"/>
+						{% endfor %}
+					</a>
+					<div class="card-body">
+						<h5 class="card-title">
+							<a href="{{ path('property_show', { 'id': property_by_type.id, 'citySlug': property_by_type.city.slug, 'slug': property_by_type.slug }) }}">
+								{{ property_by_type.propertyDescription.title }}
+							</a>
+						</h5>
+						<p class="small icon-green">
+							<i class="fas fa-map-marker-alt"></i>
+							{{ property_by_type.address }}
+						</p>
+						<span class="attribute">{{ property_by_type.dealType.name }}</span>
+						<span class="attribute">{{ property_by_type.category.name }}</span>
+						{% if property_by_type.bedroomsNumber %}
+							<span class="attribute">{{ 'Nombre de chambres'|trans }}:
+								{{ property_by_type.bedroomsNumber }}</span>
+						{% endif %}
+						<br>
+						<br>
+						{{ include('admin/property_by_type/_action_form.html.twig', {property_by_type: property_by_type}, with_context = false) }}
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}
