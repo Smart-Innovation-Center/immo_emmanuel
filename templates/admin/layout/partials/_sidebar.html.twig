@@ -2,14 +2,21 @@
 	<li class="nav-item">
 		<a class="nav-link" href="{{ path('admin_property') }}">
 			<i class="fas fa-home"></i>
-			<span>{{ 'properties'|trans }}</span>
+			<span>{{ 'Bien'|trans }}</span>
+		</a>
+	</li>
+
+	<li class="nav-item">
+		<a class="nav-link" href="{{ path('admin_transfer') }}">
+			<i class="fab fa-exchange"></i>
+			<span>{{ 'Transfèrement'|trans }}</span>
 		</a>
 	</li>
 
 	<li class="nav-item dropdown">
 		<a class="nav-link dropdown-toggle" href="#locations" id="citiesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			<i class="fas fa-map-marker-alt"></i>
-			<span>{{ 'locations'|trans }}</span>
+			<span>{{ 'Localisation'|trans }}</span>
 		</a>
 		<div class="dropdown-menu" aria-labelledby="citiesDropdown">
 			<a class="dropdown-item" href="{{ path('admin_city') }}">{{ 'cities'|trans }}</a>

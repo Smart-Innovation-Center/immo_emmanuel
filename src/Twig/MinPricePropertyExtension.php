@@ -57,6 +57,4 @@ class MinPricePropertyExtension extends AbstractExtension
         $var =  $this->bien->CountPropertyByType($id);
         return $var;
     }
-
-    
 }

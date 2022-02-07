@@ -11,7 +11,9 @@ use App\Repository\FilterRepository;
 use App\Repository\PhotoRepository;
 use App\Repository\PropertyRepository;
 use App\Repository\StructuresRepository;
+use App\Repository\TransferRepository;
 use App\Repository\TypePropertyRepository;
+use App\Repository\TypeTransferRepository;
 use App\Repository\UserRepository;
 use App\Service\Admin\DashboardService;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +26,7 @@ final class DashboardController extends BaseController
     /**
      * @Route("/admin", name="admin_dashboard")
      */
-    public function index(DashboardService $service, StructuresRepository $repositoryStructure, AgencesRepository $repositoryAgency, UserRepository $repositoryUser, PropertyRepository $repositoryProperty): Response
+    public function index(DashboardService $service, StructuresRepository $repositoryStructure, AgencesRepository $repositoryAgency, UserRepository $repositoryUser, PropertyRepository $repositoryProperty, TransferRepository $repositoryTransfer): Response
     {
         $properties = $service->countProperties();
 
@@ -48,6 +50,8 @@ final class DashboardController extends BaseController
 
         $nbr_property = $repositoryProperty->findAll();
 
+        $nbr_transfer = $repositoryTransfer->findAll();
+
 
         return $this->render('admin/dashboard/index.html.twig', [
             'site' => $this->site(),
@@ -62,6 +66,7 @@ final class DashboardController extends BaseController
             'nbr_of_tenant' => count($nbr_tenant),
             'nbr_of_owner' => count($nbr_owner),
             'nbr_of_property' => count($nbr_property),
+            'nbr_of_transfer' => count($nbr_transfer),
         ]);
     }
 
@@ -122,6 +127,42 @@ final class DashboardController extends BaseController
                 'site' => $this->site(),
                 '$nbr_property_by_type' => count($nbr_property_by_type),
                 'properties_by_type' => $nbr_property_by_type,
+            ]);
+        }
+    }
+
+    /**
+     * @Route("/admin/type-transfer", name="admin_TypeTransfer")
+     */
+    public function transfer(TypeTransferRepository $repositoryTypeTransfer): Response
+    {
+        $nbr_transfer = $repositoryTypeTransfer->findAll();
+        // dd($nbr_transfer);
+
+        return $this->render('admin/dashboard/transfer/transfer.html.twig', [
+            'site' => $this->site(),
+            'Type_transfers' => $nbr_transfer,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/transfer_by_type", name="admin_transfer_by_type")
+     */
+    public function typeTransfer(TransferRepository $repositoryTransfer): Response
+    {
+
+        $id = $_GET['id'];
+        $nbr_transfer_by_type = $repositoryTransfer->typeTransfer($id);
+
+        dd($nbr_transfer_by_type);
+
+        if (count($nbr_transfer_by_type) == 0) {
+            return $this->redirectToRoute('admin_TypeTransfer');
+        } else {
+            return $this->render('admin/dashboard/transfer/type_transfer.html.twig', [
+                'site' => $this->site(),
+                '$nbr_transfer_by_type' => count($nbr_transfer_by_type),
+                'transfers_by_type' => $nbr_transfer_by_type,
             ]);
         }
     }

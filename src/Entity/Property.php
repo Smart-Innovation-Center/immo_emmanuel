@@ -177,6 +177,8 @@ class Property
     private $typeProperty;
 
 
+
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();

@@ -1,0 +1,28 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block title %}
+	{{ 'dashboard'|trans }}
+{% endblock %}
+
+{% block body %}
+   <div class='row'>
+		{% for Type_transfer in Type_transfers %}
+			<div class="col-xl-3 col-sm-6 mb-3">
+				<div class="card text-dark bg-white o-hidden h-100">
+					<div class="card-body" style="background-color:{{Type_transfer.couleur}}; color:white;">
+
+						<div class="mr-5">{{ Type_transfer.libelle}}
+							<span class="badge">{{ countTransferByType(Type_transfer.id) }}</span>
+						</div>
+					</div>
+					<a class="card-footer text-dark clearfix small z-1" href="{{ path('admin_transfer_by_type', {id:Type_transfer.id})}}">
+						<span class="float-left btn btn-default" style="background-color:{{Type_transfer.couleur}}; color:white;">{{ 'Détails'|trans }}</span>
+						<span class="float-right">
+							<i class="fas fa-angle-right"></i>
+						</span>
+					</a>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}
