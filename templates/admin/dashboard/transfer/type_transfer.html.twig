@@ -1,0 +1,98 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block title %}
+	{{ 'dashboard'|trans }}
+{% endblock %}
+
+{% block body %}
+    <div class='row'>
+        <div class="table-responsive">
+            <table class="table" style="background-color: #FFFFFF">
+                <thead class="thead">
+                    <tr>
+                        <th>Type du Transfèrement</th>
+                        <th>Initiateur du Transfèrement</th>
+                        <th>Objet du Transfèrement</th>
+                        <th>Recepteur du Transfèrement</th>
+                        <th>Etat du Transfèrement</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   {% for transfer_by_type in transfers_by_type %}
+                        <tr>
+                            <td>{{transfer_by_type.typeTranfer.slug}}</td>
+                            <td>
+                                {% if transfer_by_type.typeTranfer.id == 1 or transfer_by_type.typeTranfer.id == 2 or transfer_by_type.typeTranfer.id == 3 %}
+                                    {{initiateurOwner(transfer_by_type.origin)}}
+                                {% elseif transfer_by_type.typeTranfer.id == 4 or transfer_by_type.typeTranfer.id == 5 or transfer_by_type.typeTranfer.id == 6 or transfer_by_type.typeTranfer.id == 7 or transfer_by_type.typeTranfer.id == 8 or transfer_by_type.typeTranfer.id == 9 %}
+                                    {{initiateurStructure(transfer_by_type.origin)}}
+                                {% elseif transfer_by_type.typeTranfer.id == 10 or transfer_by_type.typeTranfer.id == 11 or transfer_by_type.typeTranfer.id == 12 %}
+                                    {{initiateurAgence(transfer_by_type.origin)}}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if transfer_by_type.typeTranfer.id == 1 
+                                   or transfer_by_type.typeTranfer.id == 2 
+                                   or transfer_by_type.typeTranfer.id == 3 
+                                   or transfer_by_type.typeTranfer.id == 6 
+                                   or transfer_by_type.typeTranfer.id == 7
+                                   or transfer_by_type.typeTranfer.id == 9
+                                   or transfer_by_type.typeTranfer.id == 10
+                                   or transfer_by_type.typeTranfer.id == 12
+                                %}
+                                    {{propertyBetween(transfer_by_type.transferredObjectId)}}
+                                {% elseif transfer_by_type.typeTranfer.id == 4 %}
+                                    {{agencyBetween(transfer_by_type.transferredObjectId)}}
+                                {% elseif transfer_by_type.typeTranfer.id == 5
+                                   or transfer_by_type.typeTranfer.id == 8
+                                   or transfer_by_type.typeTranfer.id == 11
+                                %}
+                                    {{ownerBetween(transfer_by_type.transferredObjectId)}}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if transfer_by_type.typeTranfer.id == 3 
+                                   or transfer_by_type.typeTranfer.id == 4 
+                                   or transfer_by_type.typeTranfer.id == 5 
+                                   or transfer_by_type.typeTranfer.id == 6 
+                                %}
+                                    {{reciveStructure(transfer_by_type.destination)}}
+                                {% elseif  transfer_by_type.typeTranfer.id == 2
+                                   or  transfer_by_type.typeTranfer.id == 8 
+                                   or  transfer_by_type.typeTranfer.id == 9 
+                                   or  transfer_by_type.typeTranfer.id == 10 
+                                   or  transfer_by_type.typeTranfer.id == 11 
+                                %}
+                                    {{reciveAgence(transfer_by_type.destination)}}
+                                {% elseif  transfer_by_type.typeTranfer.id == 1
+                                   or  transfer_by_type.typeTranfer.id == 7 
+                                   or  transfer_by_type.typeTranfer.id == 12
+                                %}
+                                    {{reciveOwner(transfer_by_type.destination)}}
+                                {% endif %}
+                            </td>
+                            {% if transfer_by_type.etat == "EN ATTENTE" %}
+                                <td style='background-color:#3db3fe; color:white; text-align:center'>{{transfer_by_type.etat}}</td>
+                                <td>
+                                    <a href="{{ url('admin_transfer_valid', {id: transfer_by_type.id}) }}" class="btn btn-sm btn-outline-default" style="background-color:green; color:white">Valider</a>
+                                    <a href="{{ url('admin_transfer_annul', {id: transfer_by_type.id}) }}" class="btn btn-sm btn-outline-default" style="background-color:red; color:white">Annuler</a>
+                                </td>
+                            {% elseif transfer_by_type.etat == "VALIDE" %}
+                                <td style='background-color:green; color:white'>{{transfer_by_type.etat}}</td>
+                                <td>
+                                    <a href="{{ url('admin_transfer_annul', {id: transfer_by_type.id}) }}" class="btn btn-sm btn-outline-default" style="background-color:red; color:white">Annuler</a>
+                                </td>
+                            {% elseif transfer_by_type.etat == "ANNULE" %}
+                                <td style='background-color:red; color:white'>{{transfer_by_type.etat}}</td>
+                                <td>
+                                    <a href="{{ url('admin_transfer_valid', {id: transfer_by_type.id}) }}" class="btn btn-sm btn-outline-default" style="background-color:green; color:white">Valider</a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                   {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

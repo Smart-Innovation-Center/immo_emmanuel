@@ -6,6 +6,7 @@ namespace App\Controller\Admin;
 
 use App\Controller\BaseController;
 use App\Entity\Structures;
+use App\Entity\Transfer;
 use App\Repository\AgencesRepository;
 use App\Repository\FilterRepository;
 use App\Repository\PhotoRepository;
@@ -20,6 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Transformer\RequestToArrayTransformer;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
 
 final class DashboardController extends BaseController
 {
@@ -52,6 +54,10 @@ final class DashboardController extends BaseController
 
         $nbr_transfer = $repositoryTransfer->findAll();
 
+        $nbr_userAc = $repositoryUser->actUser();
+
+        $nbr_NoUserAc = $repositoryUser->NoActUser();
+
 
         return $this->render('admin/dashboard/index.html.twig', [
             'site' => $this->site(),
@@ -67,6 +73,8 @@ final class DashboardController extends BaseController
             'nbr_of_owner' => count($nbr_owner),
             'nbr_of_property' => count($nbr_property),
             'nbr_of_transfer' => count($nbr_transfer),
+            'nbr_of_userAc' => count($nbr_userAc),
+            'nbr_of_NoUserAc' => count($nbr_NoUserAc),
         ]);
     }
 
@@ -111,7 +119,7 @@ final class DashboardController extends BaseController
     /**
      * @Route("/admin/property_by_type", name="admin_property_by_type")
      */
-    public function typeProperty(PropertyRepository $repositoryProperty, PhotoRepository $repositoryPhoto): Response
+    public function typeProperty(PropertyRepository $repositoryProperty): Response
     {
 
         $id = $_GET['id'];
@@ -152,9 +160,9 @@ final class DashboardController extends BaseController
     {
 
         $id = $_GET['id'];
-        $nbr_transfer_by_type = $repositoryTransfer->typeTransfer($id);
+        $nbr_transfer_by_type = $repositoryTransfer->TypeTransfer($id);
 
-        dd($nbr_transfer_by_type);
+        //dd($nbr_transfer_by_type);
 
         if (count($nbr_transfer_by_type) == 0) {
             return $this->redirectToRoute('admin_TypeTransfer');
@@ -165,5 +173,37 @@ final class DashboardController extends BaseController
                 'transfers_by_type' => $nbr_transfer_by_type,
             ]);
         }
+    }
+
+    /**
+     * Displays a form to edit an existing Transfer entity.
+     *
+     * @Route("/admin/transfer/{id<\d+>}/valid",methods={"GET", "POST"}, name="admin_transfer_valid")
+     */
+    public function val(TransferRepository $repositoryTransfer): Response
+    {
+
+        //$id = $_GET['id'];
+        //dd($id);
+        $trans = $repositoryTransfer->valTrans(3);
+
+
+        return $this->redirectToRoute('admin_transfer_by_type');
+    }
+    /**
+     * Displays a form to edit an existing Transfer entity.
+     *
+     * @Route("/admin/transfer/{id<\d+>}/annul",methods={"GET", "POST"}, name="admin_transfer_annul")
+     */
+    public function annul(EntityManagerInterface $entityManager): Response
+    {
+
+        $trans = new Transfer();
+
+        $trans->setEtat('ANNULE');
+        $entityManager->persist($trans);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('admin_transfer_by_type');
     }
 }

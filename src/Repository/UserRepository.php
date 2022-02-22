@@ -152,4 +152,54 @@ class UserRepository extends ServiceEntityRepository
             ->getArrayResult();
         return $classes;
     }
+
+    public function InitiateurOwner($id)
+    {
+        $user = $this->createQueryBuilder('u')
+            ->select('u.username')
+            ->where('u.id = ' . $id . '')
+            ->getQuery()
+            ->getSingleScalarResult();
+        return $user;
+    }
+
+    public function OwnerBetween($id)
+    {
+        $user = $this->createQueryBuilder('u')
+            ->select('u.username')
+            ->where('u.id = ' . $id . '')
+            ->getQuery()
+            ->getSingleScalarResult();
+        return $user;
+    }
+
+    public function ReciveOwner($id)
+    {
+        $user = $this->createQueryBuilder('u')
+            ->select('u.username')
+            ->where('u.id = ' . $id . '')
+            ->getQuery()
+            ->getSingleScalarResult();
+        return $user;
+    }
+
+    public function actUser()
+    {
+        $qb = $this->createQueryBuilder('u');
+        $classes = $qb
+            ->where('u.atcif = true')
+            ->getQuery()
+            ->getArrayResult();
+        return $classes;
+    }
+
+    public function NoActUser()
+    {
+        $qb = $this->createQueryBuilder('u');
+        $classes = $qb
+            ->where('u.atcif = false')
+            ->getQuery()
+            ->getArrayResult();
+        return $classes;
+    }
 }

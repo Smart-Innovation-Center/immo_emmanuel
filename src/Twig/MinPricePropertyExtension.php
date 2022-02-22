@@ -36,7 +36,8 @@ class MinPricePropertyExtension extends AbstractExtension
         return [
             new TwigFunction('minPrice', [$this, 'MinPrices']),
             new TwigFunction('maxPrice', [$this, 'MaxPrices']),
-            new TwigFunction('countPropertyByType', [$this, 'CountPropertiesByType'])
+            new TwigFunction('countPropertyByType', [$this, 'CountPropertiesByType']),
+            new TwigFunction('propertyBetween', [$this, 'PropertiesBetween'])
         ];
     }
 
@@ -55,6 +56,12 @@ class MinPricePropertyExtension extends AbstractExtension
     public function CountPropertiesByType($id)
     {
         $var =  $this->bien->CountPropertyByType($id);
+        return $var;
+    }
+
+    public function PropertiesBetween($id)
+    {
+        $var =  $this->bien->PropertyBetween($id);
         return $var;
     }
 }

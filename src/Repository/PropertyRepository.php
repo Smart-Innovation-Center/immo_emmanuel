@@ -138,6 +138,17 @@ class PropertyRepository extends ServiceEntityRepository
     }
 
 
+    public function PropertyBetween($id)
+    {
+        $property = $this->createQueryBuilder('p')
+            ->select('p.slug')
+            ->where('p.id = ' . $id . '')
+            ->getQuery()
+            ->getSingleScalarResult();
+        return $property;
+    }
+
+
     private function findLimit(): int
     {
         $repository = $this->getEntityManager()->getRepository('App:Settings');

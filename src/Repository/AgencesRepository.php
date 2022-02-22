@@ -29,4 +29,34 @@ class AgencesRepository extends ServiceEntityRepository
             ->getArrayResult();
         return $classes;
     }
+
+    public function InitiateurAgence($id)
+    {
+        $agency = $this->createQueryBuilder('a')
+            ->select('a.libelle')
+            ->where('a.id = ' . $id . '')
+            ->getQuery()
+            ->getSingleScalarResult();
+        return $agency;
+    }
+
+    public function AgencyBetween($id)
+    {
+        $agency = $this->createQueryBuilder('a')
+            ->select('a.libelle')
+            ->where('a.id = ' . $id . '')
+            ->getQuery()
+            ->getSingleScalarResult();
+        return $agency;
+    }
+
+    public function ReciveAgence($id)
+    {
+        $agency = $this->createQueryBuilder('a')
+            ->select('a.libelle')
+            ->where('a.id = ' . $id . '')
+            ->getQuery()
+            ->getSingleScalarResult();
+        return $agency;
+    }
 }

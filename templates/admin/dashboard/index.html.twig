@@ -122,6 +122,45 @@
         </div>
 
 		<div class="col-xl-3 col-sm-6 mb-3">
+            <div class="card text-dark bg-white o-hidden h-100">
+				<div class="card-body" style="background-color:#776662; color:white;">
+                    <div class="card-body-icon" style="color:white;">
+					<i class="fa fa-users"></i>
+                    </div>
+                    <div class="mr-5">{{ 'Nombre d\'utilisateur actif'|trans }}
+					<span class="badge">{{ nbr_of_userAc }}</span>
+				</div>
+			</div>
+			<a class="card-footer text-dark clearfix small z-1" href="{{ path('admin_TypeTransfer')}}">
+				<span class="float-left btn btn-default" style="background-color:#776662; color:white;">{{ 'Détails'|trans }}</span>
+				<span class="float-right">
+					<i class="fas fa-angle-right"></i>
+				</span>
+			</a>
+		</div>
+	</div>
+
+	<div class="col-xl-3 col-sm-6 mb-3">
+		<div class="card text-dark bg-white o-hidden h-100">
+			<div class="card-body" style="background-color:#b97872; color:white;">
+
+				<div class="card-body-icon" style="color:white;">
+					<i class="fa fa-users"></i>
+				</div>
+				<div class="mr-5">{{ 'Nombre d\'utilisateur non-actif'|trans }}
+					<span class="badge">{{ nbr_of_NoUserAc }}</span>
+					</div>
+				</div>
+				<a class="card-footer text-dark clearfix small z-1" href="{{ path('admin_TypeTransfer')}}">
+					<span class="float-left btn btn-default" style="background-color:#b97872; color:white;">{{ 'Détails'|trans }}</span>
+					<span class="float-right">
+						<i class="fas fa-angle-right"></i>
+					</span>
+				</a>
+			</div>
+		</div>
+
+		<div class="col-xl-3 col-sm-6 mb-3">
 			<div class="card text-dark bg-white o-hidden h-100">
 				<div class="card-body">
 					<div class="card-body-icon">

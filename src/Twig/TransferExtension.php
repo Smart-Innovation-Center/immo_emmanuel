@@ -33,13 +33,20 @@ class TransferExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('countTransferByType', [$this, 'CountTransfersByType'])
+            new TwigFunction('countTransferByType', [$this, 'CountTransfersByType']),
+            new TwigFunction('transferType', [$this, 'TransferTypes'])
         ];
     }
 
     public function CountTransfersByType($id)
     {
         $var =  $this->trans->CountTransferByType($id);
+        return $var;
+    }
+
+    public function TransferTypes($id)
+    {
+        $var =  $this->trans->TransferType($id);
         return $var;
     }
 }

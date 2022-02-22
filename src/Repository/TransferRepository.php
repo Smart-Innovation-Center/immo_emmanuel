@@ -28,12 +28,24 @@ class TransferRepository extends ServiceEntityRepository
         return count($type);
     }
 
-    public function typeTransfer($id)
+    public function TypeTransfer($id)
     {
         $type = $this->createQueryBuilder('t')
             ->where('t.typeTranfer = ' . $id . '')
             ->getQuery()
             ->getResult();
+        return $type;
+    }
+
+    public function valTrans($id)
+    {
+
+
+        $type = $this->createQueryBuilder('t')
+            ->where('t.id = ' . $id . '')
+            ->update('transfer', 't')
+            ->set('t.etat', 'VALIDE')
+            ->getQuery();
         return $type;
     }
 }

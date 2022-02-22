@@ -39,6 +39,11 @@ class TypeTransfer
      */
     private $couleur;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->transfers = new ArrayCollection();
@@ -111,6 +116,18 @@ class TypeTransfer
     public function setCouleur(?string $couleur): self
     {
         $this->couleur = $couleur;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

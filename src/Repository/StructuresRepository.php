@@ -19,32 +19,23 @@ class StructuresRepository extends ServiceEntityRepository
         parent::__construct($registry, Structures::class);
     }
 
-    // /**
-    //  * @return Structures[] Returns an array of Structures objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function InitiateurStructure($id)
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
+        $structure = $this->createQueryBuilder('s')
+            ->select('s.libelle')
+            ->where('s.id = ' . $id . '')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getSingleScalarResult();
+        return $structure;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Structures
+    public function ReciveStructure($id)
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
+        $structure = $this->createQueryBuilder('s')
+            ->select('s.libelle')
+            ->where('s.id = ' . $id . '')
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getSingleScalarResult();
+        return $structure;
     }
-    */
 }

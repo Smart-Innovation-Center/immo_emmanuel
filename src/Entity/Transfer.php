@@ -33,9 +33,9 @@ class Transfer
     private $destination;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="string")
      */
-    private $etat = [];
+    private $etat;
 
     /**
      * @ORM\ManyToOne(targetEntity=TypeTransfer::class, inversedBy="transfers")
@@ -83,12 +83,12 @@ class Transfer
         return $this;
     }
 
-    public function getEtat(): ?array
+    public function getEtat(): ?string
     {
         return $this->etat;
     }
 
-    public function setEtat(array $etat): self
+    public function setEtat($etat): self
     {
         $this->etat = $etat;
 

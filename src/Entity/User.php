@@ -118,6 +118,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $recorderLocations;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $atcif;
+
 
 
 
@@ -484,6 +489,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $recorderLocation->setRecorder(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAtcif(): ?bool
+    {
+        return $this->atcif;
+    }
+
+    public function setAtcif(bool $atcif): self
+    {
+        $this->atcif = $atcif;
 
         return $this;
     }
