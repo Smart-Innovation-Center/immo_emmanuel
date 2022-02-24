@@ -153,6 +153,18 @@ class UserRepository extends ServiceEntityRepository
         return $classes;
     }
 
+    public function nbr_of_Technician()
+    {
+        $term = "ROLE_TECHNICIAN";
+        $qb = $this->createQueryBuilder('u');
+        $classes = $qb
+            ->where('u.roles LIKE :rle ')
+            ->setParameter('rle', '%' . $term . '%')
+            ->getQuery()
+            ->getArrayResult();
+        return $classes;
+    }
+
     public function InitiateurOwner($id)
     {
         $user = $this->createQueryBuilder('u')
@@ -201,5 +213,30 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
             ->getArrayResult();
         return $classes;
+    }
+
+    public function activeUser($id)
+    {
+        $type = $this->createQueryBuilder('u')
+
+            ->update('App\Entity\User', 'u')
+            ->set('u.atcif', ':etat')
+            ->setParameter('etat', true)
+            ->where('u.id = ' . $id . '')
+            ->getQuery()
+            ->execute();
+        return $type;
+    }
+
+    public function blockUser($id)
+    {
+        $type = $this->createQueryBuilder('u')
+            ->update('app\Entity\User', 'u')
+            ->set('u.atcif', ':etat')
+            ->setParameter('etat', false)
+            ->where('u.id = ' . $id . '')
+            ->getQuery()
+            ->execute();
+        return $type;
     }
 }

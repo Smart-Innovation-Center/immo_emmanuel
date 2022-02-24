@@ -37,15 +37,30 @@ class TransferRepository extends ServiceEntityRepository
         return $type;
     }
 
-    public function valTrans($id)
+    public function validateTrans($id)
     {
-
-
         $type = $this->createQueryBuilder('t')
+
+            ->update('app\Entity\transfer', 't')
+            ->set('t.etat', ':etat')
+            ->setParameter('etat', 'VALIDE')
             ->where('t.id = ' . $id . '')
-            ->update('transfer', 't')
-            ->set('t.etat', 'VALIDE')
-            ->getQuery();
+            // ->set('t.etat', '=VALIDE')
+            ->getQuery()
+            ->execute();
+        // ->flush();
+        return $type;
+    }
+
+    public function cancelTrans($id)
+    {
+        $type = $this->createQueryBuilder('t')
+            ->update('app\Entity\transfer', 't')
+            ->set('t.etat', ':etat')
+            ->setParameter('etat', 'ANNULE')
+            ->where('t.id = ' . $id . '')
+            ->getQuery()
+            ->execute();
         return $type;
     }
 }

@@ -50,6 +50,8 @@ final class DashboardController extends BaseController
 
         $nbr_owner = $repositoryUser->nbr_of_Owner();
 
+        $nbr_technician = $repositoryUser->nbr_of_Technician();
+
         $nbr_property = $repositoryProperty->findAll();
 
         $nbr_transfer = $repositoryTransfer->findAll();
@@ -71,6 +73,7 @@ final class DashboardController extends BaseController
             'number_of_agency' => count($nbr_agency),
             'nbr_of_tenant' => count($nbr_tenant),
             'nbr_of_owner' => count($nbr_owner),
+            'nbr_of_Technician' => count($nbr_technician),
             'nbr_of_property' => count($nbr_property),
             'nbr_of_transfer' => count($nbr_transfer),
             'nbr_of_userAc' => count($nbr_userAc),
@@ -84,21 +87,49 @@ final class DashboardController extends BaseController
     public function tenant(UserRepository $repositoryUser): Response
     {
         $nbr_tenant = $repositoryUser->nbr_of_Tenant();
-        return $this->render('admin/dashboard/tenant.html.twig', [
-            'site' => $this->site(),
-            'tenants' => $nbr_tenant,
-        ]);
+
+        if (count($nbr_tenant) == 0) {
+            return $this->redirectToRoute('admin_dashboard');
+        } else {
+            return $this->render('admin/dashboard/tenant.html.twig', [
+                'site' => $this->site(),
+                'technicians' => $nbr_tenant,
+            ]);
+        }
     }
+
     /**
      * @Route("/admin/owner", name="admin_owner")
      */
     public function owner(UserRepository $repositoryUser): Response
     {
         $nbr_owner = $repositoryUser->nbr_of_Owner();
-        return $this->render('admin/dashboard/owner.html.twig', [
-            'site' => $this->site(),
-            'owners' => $nbr_owner,
-        ]);
+
+        if (count($nbr_owner) == 0) {
+            return $this->redirectToRoute('admin_dashboard');
+        } else {
+            return $this->render('admin/dashboard/owner.html.twig', [
+                'site' => $this->site(),
+                'technicians' => $nbr_owner,
+            ]);
+        }
+    }
+
+    /**
+     * @Route("/admin/technician", name="admin_technician")
+     */
+    public function technician(UserRepository $repositoryUser): Response
+    {
+        $nbr_technician = $repositoryUser->nbr_of_Technician();
+
+        if (count($nbr_technician) == 0) {
+            return $this->redirectToRoute('admin_dashboard');
+        } else {
+            return $this->render('admin/dashboard/technician.html.twig', [
+                'site' => $this->site(),
+                'technicians' => $nbr_technician,
+            ]);
+        }
     }
 
     /**
@@ -180,30 +211,88 @@ final class DashboardController extends BaseController
      *
      * @Route("/admin/transfer/{id<\d+>}/valid",methods={"GET", "POST"}, name="admin_transfer_valid")
      */
-    public function val(TransferRepository $repositoryTransfer): Response
+    public function val(TransferRepository $repositoryTransfer, Request $request): Response
     {
-
         //$id = $_GET['id'];
-        //dd($id);
-        $trans = $repositoryTransfer->valTrans(3);
-
-
-        return $this->redirectToRoute('admin_transfer_by_type');
+        $id = $request->attributes->get('id');
+        //dd($request);
+        $trans = $repositoryTransfer->validateTrans($id);
+        //dd($trans);
+        return $this->redirectToRoute('admin_transfer_by_type', array("id" => $id));
     }
     /**
      * Displays a form to edit an existing Transfer entity.
      *
      * @Route("/admin/transfer/{id<\d+>}/annul",methods={"GET", "POST"}, name="admin_transfer_annul")
      */
-    public function annul(EntityManagerInterface $entityManager): Response
+    public function cancel(TransferRepository $repositoryTransfer, Request $request): Response
     {
+        //$id = $_GET['id'];
+        $id = $request->attributes->get('id');
+        //dd($request);
+        $trans = $repositoryTransfer->cancelTrans($id);
+        //dd($trans);
+        return $this->redirectToRoute('admin_transfer_by_type', array("id" => $id));
+    }
 
-        $trans = new Transfer();
+    /**
+     * @Route("/admin/user-act", name="admin_UserAct")
+     */
+    public function userAct(UserRepository $repositoryUser): Response
+    {
+        $userAc = $repositoryUser->actUser();
 
-        $trans->setEtat('ANNULE');
-        $entityManager->persist($trans);
-        $entityManager->flush();
+        //dd($userAc);
 
-        return $this->redirectToRoute('admin_transfer_by_type');
+        return $this->render('admin/dashboard/user/user-act.html.twig', [
+            'site' => $this->site(),
+            'User_Acts' => $userAc,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/user-block", name="admin_UserBlock")
+     */
+    public function userBlock(UserRepository $repositoryUser): Response
+    {
+        $userBlock = $repositoryUser->NoActUser();
+
+        //dd($userBlock);
+
+        return $this->render('admin/dashboard/user/user-block.html.twig', [
+            'site' => $this->site(),
+            'User_Blocks' => $userBlock,
+        ]);
+    }
+
+
+    /**
+     * Displays a form to edit an existing Transfer entity.
+     *
+     * @Route("/admin/user-block/{id<\d+>}/block",methods={"GET", "POST"}, name="admin_block_user")
+     */
+    public function blocUser(UserRepository $repositoryUser, Request $request): Response
+    {
+        //$id = $_GET['id'];
+        $id = $request->attributes->get('id');
+        //dd($request);
+        $userBlock = $repositoryUser->blockUser($id);
+        //dd($trans);
+        return $this->redirectToRoute('admin_UserAct', array("id" => $id));
+    }
+
+    /**
+     * Displays a form to edit an existing Transfer entity.
+     *
+     * @Route("/admin/user-act/{id<\d+>}/act",methods={"GET", "POST"}, name="admin_act_user")
+     */
+    public function actUser(UserRepository $repositoryUser, Request $request): Response
+    {
+        //$id = $_GET['id'];
+        $id = $request->attributes->get('id');
+        //dd($request);
+        $userActive = $repositoryUser->activeUser($id);
+        //dd($trans);
+        return $this->redirectToRoute('admin_UserBlock', array("id" => $id));
     }
 }
