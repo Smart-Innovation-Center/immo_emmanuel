@@ -74,12 +74,24 @@ class Structures
      */
     private $NumeroRegisteDeCommerce;
 
-  
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $etat;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $documents;
+
+
+
+
 
     public function __construct()
     {
-        $this->dateCreation= new \DateTimeImmutable();
-        $this->dateModification= new \DateTimeImmutable();
+        $this->dateCreation = new \DateTimeImmutable();
+        $this->dateModification = new \DateTimeImmutable();
         $this->agences = new ArrayCollection();
     }
     public function getId(): ?int
@@ -225,4 +237,27 @@ class Structures
         return $this;
     }
 
+    public function getEtat(): ?bool
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(bool $etat): self
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getDocuments(): ?string
+    {
+        return $this->documents;
+    }
+
+    public function setDocuments(string $documents): self
+    {
+        $this->documents = $documents;
+
+        return $this;
+    }
 }

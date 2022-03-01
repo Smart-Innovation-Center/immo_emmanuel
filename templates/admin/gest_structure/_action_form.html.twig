@@ -1,0 +1,6 @@
+<form action="{{ url('admin_gest_structure_val', {id: structure.id}) }}" method="post" data-confirmation="true" id="delete-form-{{ structure.id }}">
+	<input type="hidden" name="token" value="{{ csrf_token('delete') }}"/>
+	<button type="submit" class="btn btn-success">
+		{{ 'Valider la création' | trans }}
+	</button>
+</form>

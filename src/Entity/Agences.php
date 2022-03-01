@@ -64,6 +64,16 @@ class Agences
      */
     private $users;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $documents;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $etat;
+
 
     public function __construct()
     {
@@ -200,6 +210,30 @@ class Agences
                 $user->setAgenceId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDocuments(): ?string
+    {
+        return $this->documents;
+    }
+
+    public function setDocuments(string $documents): self
+    {
+        $this->documents = $documents;
+
+        return $this;
+    }
+
+    public function getEtat(): ?bool
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(bool $etat): self
+    {
+        $this->etat = $etat;
 
         return $this;
     }

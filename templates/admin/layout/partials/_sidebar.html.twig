@@ -1,4 +1,18 @@
 <ul class="sidebar navbar-nav{% if app.request.cookies.get('sidebar-toggled') == 'true' %} toggled{% endif %}">
+
+	<li class="nav-item dropdown">
+		<a class="nav-link dropdown-toggle" href="#locations" id="citiesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<i class="fa fa-gopuram"></i>
+
+			<span>{{ 'Structure'|trans }}</span>
+		</a>
+		<div class="dropdown-menu" aria-labelledby="citiesDropdown">
+			<a class="dropdown-item" href="{{ path('admin_gest_structures') }}">{{ 'structures'|trans }}</a>
+			<a class="dropdown-item" href="{{ path('admin_gest_agence') }}">{{ 'agences'|trans }}</a>
+		</div>
+	</li>
+
+
 	<li class="nav-item">
 		<a class="nav-link" href="{{ path('admin_property') }}">
 			<i class="fas fa-home"></i>
@@ -74,10 +88,6 @@
 			<span>{{ 'Label'|trans }}</span>
 		</a>
 		<div class="dropdown-menu" aria-labelledby="citiesDropdown">
-			<a class="dropdown-item" href="{{ path('admin_structures') }}">
-				<i class="fas fa-city"></i>
-				<span>{{ 'Structure'|trans }}</span>
-			</a>
 			<a class="dropdown-item" href="{{ path('admin_agences') }}">
 				<i class="fa fa-warehouse"></i>
 				<span>{{ 'Agence'|trans }}</span>

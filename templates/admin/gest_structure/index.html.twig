@@ -11,20 +11,11 @@
 			<span class="nav-link active">
 				<i class="fas fa-gavel text-danger"></i>
 				{{ 'structures'|trans }}
-
 			</span>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="{{ path('admin_structures_new') }}">
-
-				<i class="fas fa-plus-square text-danger"></i>
-				{{ 'créer une structure'|trans }}
-			</a>
 		</li>
 	</ul>
 
 	<div class="card mb-3">
-
 		<div class="card-body">
 			<div class="table-responsive">
 				<table class="table" style="background-color: #FFFFFF">
@@ -35,12 +26,11 @@
 							<th>{{ 'adresse' | trans }}</th>
 							<th>{{ 'contact' | trans }}</th>
 							<th>{{ 'email' | trans }}</th>
-							<th>{{ 'site Web' | trans }}</th>
+							<th>{{ 'Dossier' | trans }}</th>
 							<th>{{ 'action' | trans }}</th>
 						</tr>
 					</thead>
 					<tbody>
-
 						{% for structure in structure %}
 							<tr>
 								<td>{{ structure.libelle }}</td>
@@ -48,23 +38,29 @@
 								<td>{{ structure.adresse }}</td>
 								<td>{{ structure.contact }}</td>
 								<td>{{ structure.email }}</td>
-								<td>{{ structure.siteWeb }}</td>
-
 								<td>
-									{{ include('admin/structure/_action_form.html.twig', {structure: structure}, with_context = false) }}
+									<a href="{{('download/'~structure.documents~'.zip')}}" download>
+										<i class="fa fa-file-pdf"></i>
+									</a>
 								</td>
+								{% if structure.etat == 0 %}
+									<td>
+										{{ include('admin/gest_structure/_action_form.html.twig', {structure: structure}, with_context = false) }}
+									</td>
+								{% elseif structure.etat != 0 %}
+									<td>
+										{{ include('admin/gest_structure/_action_form.html1.twig', {structure: structure}, with_context = false) }}
+									</td>
+								{% endif %}
 							</tr>
-
 						{% else %}
 							<tr>
 								<td>{{ 'no_items_found' | trans }}</td>
 							</tr>
 						{% endfor %}
-
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
-
 {% endblock %}

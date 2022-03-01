@@ -38,4 +38,30 @@ class StructuresRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
         return $structure;
     }
+
+    public function activeStructure($id)
+    {
+        $structure = $this->createQueryBuilder('s')
+
+            ->update('App\Entity\Structures', 's')
+            ->set('s.etat', ':etat')
+            ->setParameter('etat', true)
+            ->where('s.id = ' . $id . '')
+            ->getQuery()
+            ->execute();
+        return $structure;
+    }
+
+    public function desactiveStructure($id)
+    {
+        $structure = $this->createQueryBuilder('s')
+
+            ->update('App\Entity\Structures', 's')
+            ->set('s.etat', ':etat')
+            ->setParameter('etat', false)
+            ->where('s.id = ' . $id . '')
+            ->getQuery()
+            ->execute();
+        return $structure;
+    }
 }

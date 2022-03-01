@@ -59,4 +59,31 @@ class AgencesRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
         return $agency;
     }
+
+
+    public function activeAgence($id)
+    {
+        $agence = $this->createQueryBuilder('a')
+
+            ->update('App\Entity\Agences', 'a')
+            ->set('a.etat', ':etat')
+            ->setParameter('etat', true)
+            ->where('a.id = ' . $id . '')
+            ->getQuery()
+            ->execute();
+        return $agence;
+    }
+
+    public function desactiveAgence($id)
+    {
+        $agence = $this->createQueryBuilder('a')
+
+            ->update('App\Entity\Agences', 'a')
+            ->set('a.etat', ':etat')
+            ->setParameter('etat', false)
+            ->where('a.id = ' . $id . '')
+            ->getQuery()
+            ->execute();
+        return $agence;
+    }
 }

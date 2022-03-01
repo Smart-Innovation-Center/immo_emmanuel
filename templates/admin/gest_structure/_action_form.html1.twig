@@ -1,0 +1,6 @@
+<form action="{{ url('admin_gest_structure_cancel', {id: structure.id}) }}" method="post" data-confirmation="true" id="delete-form-{{ structure.id }}">
+	<input type="hidden" name="token" value="{{ csrf_token('delete') }}"/>
+	<button type="submit" class="btn btn-danger">
+		{{ 'Annuler la création' | trans }}
+	</button>
+</form>
