@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 22 fév. 2022 à 14:39
+-- Généré le : mar. 08 mars 2022 à 11:06
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.4.9
 
@@ -38,6 +38,8 @@ CREATE TABLE IF NOT EXISTS `agences` (
   `date_suppression` datetime DEFAULT NULL,
   `date_creation` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   `structure_id_id` int(11) DEFAULT NULL,
+  `documents` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `etat` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_B46015DDAA95C5C1` (`structure_id_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -46,14 +48,14 @@ CREATE TABLE IF NOT EXISTS `agences` (
 -- Déchargement des données de la table `agences`
 --
 
-INSERT INTO `agences` (`id`, `libelle`, `email`, `contact`, `adresse`, `date_modification`, `date_suppression`, `date_creation`, `structure_id_id`) VALUES
-(2, 'Agence1', 'agence@mail.com', '020202020202', '7, rue de la garenne - 93200 Saint-Denis', '2021-11-22 10:03:43', NULL, '2021-11-22 10:03:43', 5),
-(6, 'Koko Agence 1', 'kok_agence@gmail.com', '1478596321', 'YAMOUSSOKRO', '2022-01-05 16:43:45', NULL, '2022-01-05 16:43:45', 9),
-(8, 'KO', 'ko@gmail.com', '0748028796', 'ko', '2022-01-06 12:21:57', NULL, '2022-01-06 12:21:57', 9),
-(9, 'ABEU', 'ab_beu@yahoo.fr', '15963578', 'COCODY ABIDJAN ANGRE STAR 14', '2022-01-06 12:39:58', NULL, '2022-01-06 12:39:58', 9),
-(10, 'LOLO', 'lo@gmail.com', '010203045050', 'Man', '2022-01-07 15:23:18', NULL, '2022-01-07 15:23:18', 9),
-(11, 'Agence test', 'test@gmail.com', '0456891456', 'Makono', '2022-01-17 15:21:37', NULL, '2022-01-17 15:21:37', 9),
-(12, 'IL', 'il@mail.com', '14151617181920', 'MAKONO', '2022-01-25 09:27:47', NULL, '2022-01-25 09:27:47', 9);
+INSERT INTO `agences` (`id`, `libelle`, `email`, `contact`, `adresse`, `date_modification`, `date_suppression`, `date_creation`, `structure_id_id`, `documents`, `etat`) VALUES
+(2, 'Agence1', 'agence@mail.com', '020202020202', '7, rue de la garenne - 93200 Saint-Denis', '2021-11-22 10:03:43', NULL, '2021-11-22 10:03:43', 5, 'agence1', 1),
+(6, 'Koko Agence 1', 'kok_agence@gmail.com', '1478596321', 'YAMOUSSOKRO', '2022-01-05 16:43:45', NULL, '2022-01-05 16:43:45', 9, 'koko_agence_1', 1),
+(8, 'KO', 'ko@gmail.com', '0748028796', 'ko', '2022-01-06 12:21:57', NULL, '2022-01-06 12:21:57', 9, 'ko', 1),
+(9, 'ABEU', 'ab_beu@yahoo.fr', '15963578', 'COCODY ABIDJAN ANGRE STAR 14', '2022-01-06 12:39:58', NULL, '2022-01-06 12:39:58', 9, 'abeu', 1),
+(10, 'LOLO', 'lo@gmail.com', '010203045050', 'Man', '2022-01-07 15:23:18', NULL, '2022-01-07 15:23:18', 9, 'lolo', 1),
+(11, 'Agence test', 'test@gmail.com', '0456891456', 'Makono', '2022-01-17 15:21:37', NULL, '2022-01-17 15:21:37', 9, 'agence_test', 1),
+(12, 'IL', 'il@mail.com', '14151617181920', 'MAKONO', '2022-01-25 09:27:47', NULL, '2022-01-25 09:27:47', 9, 'il', 1);
 
 -- --------------------------------------------------------
 
@@ -825,6 +827,8 @@ CREATE TABLE IF NOT EXISTS `structures` (
   `date_modification` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
   `date_suppression` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
   `numero_registe_de_commerce` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `etat` tinyint(1) NOT NULL,
+  `documents` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_5BBEC55AA4D60759` (`libelle`),
   UNIQUE KEY `UNIQ_5BBEC55A4C62E638` (`contact`),
@@ -836,9 +840,9 @@ CREATE TABLE IF NOT EXISTS `structures` (
 -- Déchargement des données de la table `structures`
 --
 
-INSERT INTO `structures` (`id`, `libelle`, `adresse`, `contact`, `email`, `site_web`, `date_creation`, `date_modification`, `date_suppression`, `numero_registe_de_commerce`) VALUES
-(5, 'Structure test', 'adresse 1', '123456789', 'structure@gmail.com', 'siteweb.com', '2021-11-22 10:00:03', '2021-11-22 10:00:03', NULL, '15-81478'),
-(9, 'KOKO EXPERTISE', 'KOKO/BOUAKE', '022566666666', 'kokoexpertise@gmail.com', 'kokoexpert.ci', '2022-01-05 16:43:45', '2022-01-05 16:43:45', NULL, '20025973007MOTO');
+INSERT INTO `structures` (`id`, `libelle`, `adresse`, `contact`, `email`, `site_web`, `date_creation`, `date_modification`, `date_suppression`, `numero_registe_de_commerce`, `etat`, `documents`) VALUES
+(5, 'Structure test', 'adresse 1', '123456789', 'structure@gmail.com', 'siteweb.com', '2021-11-22 10:00:03', '2021-11-22 10:00:03', NULL, '15-81478', 1, 'structure_test_1'),
+(9, 'KOKO EXPERTISE', 'KOKO/BOUAKE', '022566666666', 'kokoexpertise@gmail.com', 'kokoexpert.ci', '2022-01-05 16:43:45', '2022-01-05 16:43:45', NULL, '20025973007MOTO', 1, 'koko_expertise');
 
 -- --------------------------------------------------------
 
@@ -863,7 +867,7 @@ CREATE TABLE IF NOT EXISTS `transfer` (
 --
 
 INSERT INTO `transfer` (`id`, `transferred_object_id`, `origin`, `destination`, `etat`, `type_tranfer_id`) VALUES
-(1, 1, 4, 11, 'EN ATTENTE', 1),
+(1, 1, 4, 11, 'ANNULE', 1),
 (2, 8, 9, 5, 'VALIDE', 4),
 (3, 11, 2, 12, 'ANNULE', 10);
 
@@ -943,6 +947,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `agence_id_id` int(11) DEFAULT NULL,
   `is_verified` tinyint(1) NOT NULL,
   `atcif` tinyint(1) NOT NULL,
+  `documents` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_1483A5E9F85E0677` (`username`),
   UNIQUE KEY `UNIQ_1483A5E9E7927C74` (`email`),
@@ -953,19 +958,19 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `roles`, `confirmation_token`, `password_requested_at`, `agence_id_id`, `is_verified`, `atcif`) VALUES
-(1, 'admin', 'admin@admin.com', '$2y$13$n9FoLXv7PZqATZhMq1Xe3uNhthf8NHrBDU0qwe80IHL5OReW10IdG', '[\"ROLE_ADMIN\"]', NULL, NULL, 2, 0, 1),
-(2, 'user', 'user@user.com', '$2y$13$4askyul99BYgUIpSSUS..uWk6p175T27ePju7T/O7kGiEXvU3HCRO', '[\"ROLE_USER\"]', NULL, NULL, 2, 0, 1),
-(4, 'mode', 'abeufrederic@gmail.com', '$2y$13$n9FoLXv7PZqATZhMq1Xe3uNhthf8NHrBDU0qwe80IHL5OReW10IdG', '[\"ROLE_PROPRIETAIRE\"]', NULL, NULL, 2, 0, 1),
-(8, 'mode2', 'nguetiaabenankabecca@gmail.com', '$2y$13$dmO8WlPoO9khBAtIADHsNu0qMhfvOu9E5noiX7N7KzF/BPAHhU4G2', '[\"ROLE_PROPRIETAIRE\"]', NULL, NULL, 6, 0, 0),
-(11, 'abeufrederic@gmail.com', 'ab_be@yahoo.fr', '$2y$13$sWY9S.0s.oAGmwBhfzMnvOHfvhdiAPQt8rxRrQB1SrUuheLvFGtNa', '[\"ROLE_PROPRIETAIRE\"]', NULL, NULL, 9, 0, 0),
-(12, 'Structure1', 'strcture@gmail.com', '$2y$13$gqlmdd42AoyPz0BVLfUlkuxXtTTg6m2cP.fUe9FLQAsWeOsyRhlhu', '[\"ROLE_STRUCTURE\"]', NULL, NULL, 8, 0, 0),
-(16, 'Malachie', 'malachie@gmail.com', '$2y$13$tVXKO/y9AY2vSZu0ZFuPsOlCWy37RGtoaMs3bn9jIyExIYnZRwQU2', '[\"ROLE_STRUCTURE\"]', NULL, NULL, 6, 0, 1),
-(17, 'Michée', 'michee@gmail.com', '$2y$13$SLPqsBuTHCAXKY77zycAS.2usuKZzhLIbzDDAakeJryU7naPsBUu6', '[\"ROLE_STRUCTURE\"]', NULL, NULL, 6, 0, 1),
-(19, 'koko', 'koko@gmail.com', '$2y$13$SQX4gWLU.0evQ9GzuxILKel7S9wMe1LTEXlJN3skZfuwhd.VzqPDq', '[\"ROLE_STRUCTURE\"]', NULL, NULL, 6, 0, 1),
-(20, 'Emmanuel', 'emm@gmail.com', '$2y$13$Nh8Cz9Qww5JIq81NbeFc5OhG2yvMzEYuDuZSxs1MZTjJpiVe6BoIe', '[\"ROLE_PROPRIETAIRE\"]', NULL, NULL, 6, 0, 0),
-(25, 'Jean Baptise', 'jean@gmail.com', '$2y$13$twLnyXYtotO7Uwy1yySbW.0pnRILYzTjMhMBqbslHaciVqdf8fEWa', '[\"ROLE_LOCATAIRE\"]', NULL, NULL, 8, 0, 0),
-(26, 'test', 'test@gmail.com', '$2y$13$./i67iA/lq20JqKxt3A9L..SINmPVryNME2ckdTAdvTVKMDcK1nL2', '[\"ROLE_STRUCTURE\"]', NULL, NULL, 12, 0, 0);
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `roles`, `confirmation_token`, `password_requested_at`, `agence_id_id`, `is_verified`, `atcif`, `documents`) VALUES
+(1, 'admin', 'admin@admin.com', '$2y$13$n9FoLXv7PZqATZhMq1Xe3uNhthf8NHrBDU0qwe80IHL5OReW10IdG', '[\"ROLE_ADMIN\"]', NULL, NULL, 2, 0, 0, 'admin'),
+(2, 'user', 'user@user.com', '$2y$13$4askyul99BYgUIpSSUS..uWk6p175T27ePju7T/O7kGiEXvU3HCRO', '[\"ROLE_USER\"]', NULL, NULL, 2, 0, 1, 'user'),
+(4, 'mode', 'abeufrederic@gmail.com', '$2y$13$n9FoLXv7PZqATZhMq1Xe3uNhthf8NHrBDU0qwe80IHL5OReW10IdG', '[\"ROLE_PROPRIETAIRE\"]', NULL, NULL, 2, 0, 1, 'mode'),
+(8, 'mode2', 'nguetiaabenankabecca@gmail.com', '$2y$13$dmO8WlPoO9khBAtIADHsNu0qMhfvOu9E5noiX7N7KzF/BPAHhU4G2', '[\"ROLE_PROPRIETAIRE\"]', NULL, NULL, 6, 0, 1, 'mode2'),
+(11, 'abeufrederic@gmail.com', 'ab_be@yahoo.fr', '$2y$13$sWY9S.0s.oAGmwBhfzMnvOHfvhdiAPQt8rxRrQB1SrUuheLvFGtNa', '[\"ROLE_PROPRIETAIRE\"]', NULL, NULL, 9, 0, 1, 'abeufrederic@gmail.com'),
+(12, 'Structure1', 'strcture@gmail.com', '$2y$13$gqlmdd42AoyPz0BVLfUlkuxXtTTg6m2cP.fUe9FLQAsWeOsyRhlhu', '[\"ROLE_STRUCTURE\"]', NULL, NULL, 8, 0, 1, 'structure1'),
+(16, 'Malachie', 'malachie@gmail.com', '$2y$13$tVXKO/y9AY2vSZu0ZFuPsOlCWy37RGtoaMs3bn9jIyExIYnZRwQU2', '[\"ROLE_STRUCTURE\"]', NULL, NULL, 6, 0, 1, 'malachie'),
+(17, 'Michée', 'michee@gmail.com', '$2y$13$SLPqsBuTHCAXKY77zycAS.2usuKZzhLIbzDDAakeJryU7naPsBUu6', '[\"ROLE_STRUCTURE\"]', NULL, NULL, 6, 0, 1, 'michee'),
+(19, 'koko', 'koko@gmail.com', '$2y$13$SQX4gWLU.0evQ9GzuxILKel7S9wMe1LTEXlJN3skZfuwhd.VzqPDq', '[\"ROLE_STRUCTURE\"]', NULL, NULL, 6, 0, 0, 'koko'),
+(20, 'Emmanuel', 'emm@gmail.com', '$2y$13$Nh8Cz9Qww5JIq81NbeFc5OhG2yvMzEYuDuZSxs1MZTjJpiVe6BoIe', '[\"ROLE_PROPRIETAIRE\"]', NULL, NULL, 6, 0, 1, 'emmanuel'),
+(25, 'Jean Baptise', 'jean@gmail.com', '$2y$13$twLnyXYtotO7Uwy1yySbW.0pnRILYzTjMhMBqbslHaciVqdf8fEWa', '[\"ROLE_LOCATAIRE\"]', NULL, NULL, 8, 0, 1, 'jean_baptise'),
+(26, 'test', 'test@gmail.com', '$2y$13$./i67iA/lq20JqKxt3A9L..SINmPVryNME2ckdTAdvTVKMDcK1nL2', '[\"ROLE_LOCATAIRE\"]', NULL, NULL, 12, 0, 0, 'test');
 
 -- --------------------------------------------------------
 
