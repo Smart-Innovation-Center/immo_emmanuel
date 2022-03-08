@@ -93,7 +93,7 @@ final class DashboardController extends BaseController
         } else {
             return $this->render('admin/dashboard/tenant.html.twig', [
                 'site' => $this->site(),
-                'technicians' => $nbr_tenant,
+                'tenants' => $nbr_tenant,
             ]);
         }
     }
@@ -108,9 +108,9 @@ final class DashboardController extends BaseController
         if (count($nbr_owner) == 0) {
             return $this->redirectToRoute('admin_dashboard');
         } else {
-            return $this->render('admin/dashboard/owner.html.twig', [
+            return $this->render('admin/gest_owner/index.html.twig', [
                 'site' => $this->site(),
-                'technicians' => $nbr_owner,
+                'owners' => $nbr_owner,
             ]);
         }
     }
@@ -125,7 +125,7 @@ final class DashboardController extends BaseController
         if (count($nbr_technician) == 0) {
             return $this->redirectToRoute('admin_dashboard');
         } else {
-            return $this->render('admin/dashboard/technician.html.twig', [
+            return $this->render('admin/gest_technician/index.html.twig', [
                 'site' => $this->site(),
                 'technicians' => $nbr_technician,
             ]);

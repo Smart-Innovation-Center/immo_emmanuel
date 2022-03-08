@@ -233,4 +233,82 @@ class UserRepository extends ServiceEntityRepository
             ->execute();
         return $type;
     }
+
+    public function activeOwner($id)
+    {
+        $owner = $this->createQueryBuilder('u')
+
+            ->update('App\Entity\User', 'u')
+            ->set('u.atcif', ':atcif')
+            ->setParameter('atcif', true)
+            ->where('u.id = ' . $id . '')
+            ->getQuery()
+            ->execute();
+        return $owner;
+    }
+
+    public function desactiveOwner($id)
+    {
+        $owner = $this->createQueryBuilder('u')
+
+            ->update('App\Entity\User', 'u')
+            ->set('u.atcif', ':atcif')
+            ->setParameter('atcif', false)
+            ->where('u.id = ' . $id . '')
+            ->getQuery()
+            ->execute();
+        return $owner;
+    }
+
+    public function activeTenant($id)
+    {
+        $tenant = $this->createQueryBuilder('u')
+
+            ->update('App\Entity\User', 'u')
+            ->set('u.atcif', ':atcif')
+            ->setParameter('atcif', true)
+            ->where('u.id = ' . $id . '')
+            ->getQuery()
+            ->execute();
+        return $tenant;
+    }
+
+    public function desactiveTenant($id)
+    {
+        $tenant = $this->createQueryBuilder('u')
+
+            ->update('App\Entity\User', 'u')
+            ->set('u.atcif', ':atcif')
+            ->setParameter('atcif', false)
+            ->where('u.id = ' . $id . '')
+            ->getQuery()
+            ->execute();
+        return $tenant;
+    }
+
+    public function activeTechnician($id)
+    {
+        $tenant = $this->createQueryBuilder('u')
+
+            ->update('App\Entity\User', 'u')
+            ->set('u.atcif', ':atcif')
+            ->setParameter('atcif', true)
+            ->where('u.id = ' . $id . '')
+            ->getQuery()
+            ->execute();
+        return $tenant;
+    }
+
+    public function desactiveTechnician($id)
+    {
+        $tenant = $this->createQueryBuilder('u')
+
+            ->update('App\Entity\User', 'u')
+            ->set('u.atcif', ':atcif')
+            ->setParameter('atcif', false)
+            ->where('u.id = ' . $id . '')
+            ->getQuery()
+            ->execute();
+        return $tenant;
+    }
 }

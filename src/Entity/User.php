@@ -123,6 +123,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $atcif;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $documents;
+
 
 
 
@@ -501,6 +506,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAtcif(bool $atcif): self
     {
         $this->atcif = $atcif;
+
+        return $this;
+    }
+
+    public function getDocuments(): ?string
+    {
+        return $this->documents;
+    }
+
+    public function setDocuments(string $documents): self
+    {
+        $this->documents = $documents;
 
         return $this;
     }

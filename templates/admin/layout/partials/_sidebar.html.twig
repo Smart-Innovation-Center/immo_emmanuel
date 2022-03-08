@@ -12,6 +12,19 @@
 		</div>
 	</li>
 
+	<li class="nav-item dropdown">
+		<a class="nav-link dropdown-toggle" href="#locations" id="citiesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<i class="fa fa-users"></i>
+
+			<span>{{ 'Utilisateurs'|trans }}</span>
+		</a>
+		<div class="dropdown-menu" aria-labelledby="citiesDropdown">
+			<a class="dropdown-item" href="{{ path('admin_gest_owners') }}">{{ 'propriétaire'|trans }}</a>
+			<a class="dropdown-item" href="{{ path('admin_gest_tenants') }}">{{ 'locataire'|trans }}</a>
+			<a class="dropdown-item" href="{{ path('admin_gest_technicians') }}">{{ 'Techniciens'|trans }}</a>
+		</div>
+	</li>
+
 
 	<li class="nav-item">
 		<a class="nav-link" href="{{ path('admin_property') }}">
@@ -112,6 +125,4 @@
 			</a>
 		</div>
 	</li>
-
-
 </ul>

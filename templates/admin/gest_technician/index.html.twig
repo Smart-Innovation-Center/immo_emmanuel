@@ -1,7 +1,7 @@
 {% extends 'admin/layout/base.html.twig' %}
 
 {% block title %}
-	{{ 'Agences'|trans }}
+	{{ 'Techniciens'|trans }}
 {% endblock %}
 
 {% block body %}
@@ -10,7 +10,7 @@
 	<li class="nav-item active">
 		<span class="nav-link active">
 			<i class="fas fa-gavel"></i>
-			{{ 'Agences'|trans }}
+			{{ 'Techniciens'|trans }}
 		</span>
 	</li>
 </ul>
@@ -21,35 +21,31 @@
 			<table class="table" style="background-color: #FFFFFF">
 				<thead class="thead">
 					<tr>
-						<th>{{ 'Nom de l\'agence' | trans }}</th>
-						<th>{{ 'Nom de la structure' | trans }}</th>
-						<th>{{ 'adresse' | trans }}</th>
-						<th>{{ 'contact' | trans }}</th>
-						<th>{{ 'email' | trans }}</th>
+						<th>{{ 'Nom d\'utilisateur' | trans }}</th>
+						<th>{{ 'Email' | trans }}</th>
+						<th>{{ 'Role' | trans }}</th>
 						<th>{{ 'Dossier' | trans }}</th>
 						<th>{{ 'action' | trans }}</th>
 					</tr>
 				</thead>
 				<tbody>
-					{% for agence in agences %}
+					{% for technician in technicians %}
 						<tr>
-							<td>{{ agence.libelle }}</td>
-							<td>{{ agence.StructureId.libelle }}</td>
-							<td>{{ agence.adresse }}</td>
-							<td>{{ agence.contact }}</td>
-							<td>{{ agence.email }}</td>
+							<td>{{ technician.username }}</td>
+							<td>{{ technician.email }}</td>
+							<td>{{ technician.email }}</td>
 							<td>
-								<a href="{{('download/'~agence.documents~'.zip')}}" download>
+								<a href="{{('download/'~technician.documents~'.zip')}}" download>
 									<i class="fa fa-file-pdf"></i>
 								</a>
 							</td>
-							{% if agence.etat == 0 %}
+							{% if technician.atcif == 0 %}
 								<td>
-									{{ include('admin/gest_agence/_action_form.html.twig', {agence: agence}, with_context = false) }}
+									{{ include('admin/gest_technician/_action_form.html.twig', {technician: technician}, with_context = false) }}
 								</td>
-							{% elseif agence.etat != 0 %}
+							{% elseif technician.atcif != 0 %}
 								<td>
-									{{ include('admin/gest_agence/_action_form.html1.twig', {agence: agence}, with_context = false) }}
+									{{ include('admin/gest_technician/_action_form.html1.twig', {technician: technician}, with_context = false) }}
 								</td>
 							{% endif %}
 						</tr>

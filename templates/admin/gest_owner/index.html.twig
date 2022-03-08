@@ -1,0 +1,62 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block title %}
+	{{ 'Propriétaires'|trans }}
+{% endblock %}
+
+{% block body %}
+
+<ul class="nav nav-tabs">
+	<li class="nav-item active">
+		<span class="nav-link active">
+			<i class="fas fa-gavel"></i>
+			{{ 'Propriétaires'|trans }}
+		</span>
+	</li>
+</ul>
+
+<div class="card mb-3">
+	<div class="card-body">
+		<div class="table-responsive">
+			<table class="table" style="background-color: #FFFFFF">
+				<thead class="thead">
+					<tr>
+						<th>{{ 'Nom d\'utilisateur' | trans }}</th>
+						<th>{{ 'Email' | trans }}</th>
+						<th>{{ 'Role' | trans }}</th>
+						<th>{{ 'Dossier' | trans }}</th>
+						<th>{{ 'action' | trans }}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for owner in owners %}
+						<tr>
+							<td>{{ owner.username }}</td>
+							<td>{{ owner.email }}</td>
+							<td>{{ owner.email }}</td>
+							<td>
+								<a href="{{('download/'~owner.documents~'.zip')}}" download>
+									<i class="fa fa-file-pdf"></i>
+								</a>
+							</td>
+							{% if owner.atcif == 0 %}
+								<td>
+									{{ include('admin/gest_owner/_action_form.html.twig', {owner: owner}, with_context = false) }}
+								</td>
+							{% elseif owner.atcif != 0 %}
+								<td>
+									{{ include('admin/gest_owner/_action_form.html1.twig', {owner: owner}, with_context = false) }}
+								</td>
+							{% endif %}
+						</tr>
+					{% else %}
+						<tr>
+							<td>{{ 'no_items_found' | trans }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}

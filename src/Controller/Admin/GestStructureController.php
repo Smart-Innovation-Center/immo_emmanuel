@@ -28,7 +28,7 @@ final class GestStructureController extends BaseController
         $repository = $this->getDoctrine()->getRepository(Structures::class);
 
         $structures = $repository->findAll();
-            //dd($structures);
+         //dd($structures);
         return $this->render('admin/gest_structure/index.html.twig', [
             'site' => $this->site(),
             'structure' => $structures
@@ -42,7 +42,7 @@ final class GestStructureController extends BaseController
     {
 
         $id = $_GET['id'];
-            //dd($id);
+         //dd($id);
         $structures = $StructuresRepository->activeStructure($id);
 
         return $this->redirectToRoute('admin_gest_structures');

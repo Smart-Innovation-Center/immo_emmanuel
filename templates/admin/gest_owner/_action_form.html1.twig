@@ -1,0 +1,6 @@
+<form action="{{ url('admin_gest_owner_cancel', {id: owner.id}) }}" method="post" data-confirmation="true" id="delete-form-{{ owner.id }}">
+	<input type="hidden" name="token" value="{{ csrf_token('delete') }}"/>
+	<button type="submit" class="btn btn-danger">
+		{{ 'Annuler la création' | trans }}
+	</button>
+</form>
